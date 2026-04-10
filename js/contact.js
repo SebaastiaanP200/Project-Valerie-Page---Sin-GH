@@ -78,7 +78,7 @@ checkbox.forEach((checkbox) =>
   checkbox.addEventListener("change", validarCampos),
 );
 
-const enviarFormulario = document.getElementById("form");
+const enviarFormulario = document.getElementById("form__c");
 enviarFormulario.addEventListener("submit", (e) => {
   e.preventDefault();
   try {
@@ -91,13 +91,13 @@ enviarFormulario.addEventListener("submit", (e) => {
       alert("Los caracteres son menores a los requeridos");
     }
 
-    email.addEventListener("click", () => {
+    // email.addEventListener("click", () => {
 
-    });
+    // });
 
-    phone.addEventListener("click", () => {
+    // phone.addEventListener("click", () => {
 
-    });
+    // });
     
     if (!validarCheckbox()) {
       throw "Debe seleccionar el tipo de servicio antes de poder enviar.";
@@ -111,6 +111,14 @@ enviarFormulario.addEventListener("submit", (e) => {
     alert(e);
   }
 });
+
+const expresiones = {
+	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	password: /^.{4,12}$/, // 4 a 12 digitos.
+	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+}
 
 
 

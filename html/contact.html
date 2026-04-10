@@ -47,7 +47,7 @@
 
 	<main>
 		<h2>Formulario de contacto</h2>
-			<form id="app__form" action="https://formsubmit.co/5fbf8a1ab528110d384beaf0f20c16f0" method="POST">
+			<form id="form__c" action="https://formsubmit.co/5fbf8a1ab528110d384beaf0f20c16f0" method="POST">
 				
 				<div class="form__goup" id="name__group">
 					<label for="nombre" class="form__label --name">Nombre</label>
@@ -113,12 +113,18 @@
 						<label class="checkbox__label">
 							<input type="checkbox" class="checkbox" name="servicios[]" value="interior">Interior
 						</label>
+					</div>
+					<div class="checkbox__container">
 						<label class="checkbox__label">
 							<input type="checkbox" class="checkbox" name="servicios[]" value="exterior">Exterior
 						</label>
+					</div>
+					<div class="checkbox__container">
 						<label class="checkbox__label">
 							<input type="checkbox" class="checkbox" name="servicios[]" value="fotos_impresas">Fotos Impresas (CANTIDAD y MEDIDA)
 						</label>
+					</div>
+					<div class="checkbox__container">
 						<label class="checkbox__label">
 							<input type="checkbox" class="checkbox" name="servicios[]" value="fotos_digitales">Fotos Digitales
 						</label>
@@ -184,7 +190,9 @@
 				</div>
 			
 				<div class="form__input --pay" id="form">
-					<legend class="disclaimer"><strong>FORMA DE PAGO</strong></legend>
+					<legend class="disclaimer">
+						<strong>FORMA DE PAGO</strong>
+					</legend>
 					<ul class="disclaimer__container" id="pagos" style="display: none;"></ul>
 				</div>
 			
@@ -195,7 +203,10 @@
 				</div>
 			
 				<div class="form__msg" id="form__msg">
-					<p><i class="fa-solid fa-triangle-exclamation" style="color: rgb(180, 0, 0);"></i><strong> Error: </strong>Por favor, rellena el formulario correctamente.</p>
+					<p>
+						<i class="fa-solid fa-triangle-exclamation" style="color: rgb(180, 0, 0);"></i>
+						<strong> Error: </strong>Por favor, rellena el formulario correctamente.
+					</p>
 				</div>
 
 				<div class="form__input --form-group">
@@ -229,5 +240,6 @@
 	<script src="https://kit.fontawesome.com/314d450419.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 	<script type="module" src="/js/contact.js"></script>
+
 </body>
 </html>

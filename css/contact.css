@@ -216,6 +216,7 @@ input:focus {
   width: auto;
   height: auto;
   accent-color: #222;
+  cursor: pointer;
 }
 
 .--term-group, .form__msg, .--form-group {
@@ -324,6 +325,7 @@ label {
   width: auto;
   height: auto;
   accent-color: #333;
+  cursor: pointer;
 }
 
 .checkbox__container {
