@@ -82,13 +82,27 @@ const enviarFormulario = document.getElementById("form");
 enviarFormulario.addEventListener("submit", (e) => {
   e.preventDefault();
   try {
+    const name = document.getElementById("nombre").value.trim();
+    const lastname = document.getElementById("apellido").value.trim(); 
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("telefono").value.trim();
+    
+    if (name.length < 2 && lastname.length < 2) {
+      alert("Los caracteres son menores a los requeridos");
+    }
+
+    email.addEventListener("click", () => {
+
+    });
+
+    phone.addEventListener("click", () => {
+
+    });
+    
     if (!validarCheckbox()) {
       throw "Debe seleccionar el tipo de servicio antes de poder enviar.";
     } else if (!tipoEvento.value || !lugar.value || !fecha.value) {
       throw "Debe completar todos los campos requeridos antes de poder enviar.";
-    } else if (!userLoggedIn) {
-      ModalLogin();
-      throw "Debe iniciar sesión para enviar el formulario.";
     } else {
       alert("Formulario enviado correctamente.");
     }
@@ -98,115 +112,118 @@ enviarFormulario.addEventListener("submit", (e) => {
   }
 });
 
-// LOGIN / LOGOUT
 
-import { login, logout } from "./firebase/auth.js";
-import { auth } from "./firebase/firebase.js";
-import { insert, getItems, update} from "./firebase/firestore.js";
-import { getUUID } from "./utils.js";
 
-const buttonLogin = document.getElementById("buttonLogin");
-const buttonLogout = document.getElementById("buttonLogout");
-const app__form = document.getElementById("app__form");
-const app__input = document.getElementById("app__input");
-const todo__container = document.getElementById("todo__container");
 
-let currentUser = null;
-auth.onAuthStateChanged(user =>  {
-  if (user) {
-    currentUser = user;
-    console.log("Usuario loguegado: ", currentUser.displayName);
-    init();
-  } else {
-    console.log("No hay un usuario logueado")
-  }
-})
+// // LOGIN / LOGOUT
 
-buttonLogin.addEventListener("click", async (e) => {
-  try {
-    currentUser = await login();
-  } catch (error) {
-    console.error("Error al iniciar sesión:", error);
-  }
-});
+// import { login, logout } from "./firebase/auth.js";
+// import { auth } from "./firebase/firebase.js";
+// import { insert, getItems, update} from "./firebase/firestore.js";
+// import { getUUID } from "./utils.js";
 
-buttonLogout.addEventListener("click", async (e) => {
-  try {
-    await logout();
-  } catch (error) {
-    console.error("Error al cerrar sesión:", error);
-  }
-});
+// const buttonLogin = document.getElementById("buttonLogin");
+// const buttonLogout = document.getElementById("buttonLogout");
+// const app__form = document.getElementById("app__form");
+// const app__input = document.getElementById("app__input");
+// const todo__container = document.getElementById("todo__container");
 
-app__form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const text = app__input.value;
-  if (text !== '  ') {
-    addTodo(text);
-    app__input.value = '';
-    loadTodos();
-  }
-});
+// let currentUser = null;
+// auth.onAuthStateChanged(user =>  {
+//   if (user) {
+//     currentUser = user;
+//     console.log("Usuario loguegado: ", currentUser.displayName);
+//     init();
+//   } else {
+//     console.log("No hay un usuario logueado")
+//   }
+// })
 
-async function addTodo(text) {
-  try {
-    const todo = {
-    id: getUUID(),
-    text: text,
-    completed: false,
-    userid: currentUser.uid,
-    };
-    const response = await insert(todo);
-  } catch (error) {
-    console.error("Error al agregar el todo:", error);
-  }
-}
+// buttonLogin.addEventListener("click", async (e) => {
+//   try {
+//     currentUser = await login();
+//   } catch (error) {
+//     console.error("Error al iniciar sesión:", error);
+//   }
+// });
 
-function init() {
-  buttonLogin.classList.add("hidden");
-  buttonLogout.classList.remove("hidden");
-  app__form.classList.remove("hidden");
+// buttonLogout.addEventListener("click", async (e) => {
+//   try {
+//     await logout();
+//   } catch (error) {
+//     console.error("Error al cerrar sesión:", error);
+//   }
+// });
 
-  user__info.innerHTML = `
-  <img src="${currentUser.photoURL}" alt="Foto de perfil" class="user__photo" width="32">
-  <span class="user__name">Hola, ${currentUser.displayName}</span>`;
-  loadTodos();
-}
+// app__form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   const text = app__input.value;
+//   if (text !== '  ') {
+//     addTodo(text);
+//     app__input.value = '';
+//     loadTodos();
+//   }
+// });
 
-let todos = [];
-async function loadTodos() {
-  todo__container.innerHTML = ``;
+// async function addTodo(text) {
+//   try {
+//     const todo = {
+//     id: getUUID(),
+//     text: text,
+//     completed: false,
+//     userid: currentUser.uid,
+//     };
+//     const response = await insert(todo);
+//   } catch (error) {
+//     console.error("Error al agregar el todo:", error);
+//   }
+// }
+
+// function init() {
+//   buttonLogin.classList.add("hidden");
+//   buttonLogout.classList.remove("hidden");
+//   app__form.classList.remove("hidden");
+
+//   user__info.innerHTML = `
+//   <img src="${currentUser.photoURL}" alt="Foto de perfil" class="user__photo" width="32">
+//   <span class="user__name">Hola, ${currentUser.displayName}</span>`;
+//   loadTodos();
+// }
+
+// let todos = [];
+// async function loadTodos() {
+//   todo__container.innerHTML = ``;
   
-    try {
-      const response = await getItems(currentUser.uid);
-      todos = [...response];
-      renderTodos();
-    } catch (error) {
-      console.error("Error al cargar los todos:", error);
-    }
-}
+//     try {
+//       const response = await getItems(currentUser.uid);
+//       todos = [...response];
+//       renderTodos();
+//     } catch (error) {
+//       console.error("Error al cargar los todos:", error);
+//     }
+// }
 
-function renderTodos() {
-  let html = "";
+// function renderTodos() {
+//   let html = "";
 
-  todos.forEach((todo) => {
-    html += `
-    <li>
-      <input type="checkbox" id="${todo.id}" ${todo.completed ? "checked" : ""} class="todo__checkbox">
-      <span>${todo.text}</span>
-    </li>`;
-  });
-  todo__container.innerHTML = html;
+//   todos.forEach((todo) => {
+//     html += `
+//     <li>
+//       <input type="checkbox" id="${todo.id}" ${todo.completed ? "checked" : ""} class="todo__checkbox">
+//       <span>${todo.text}</span>
+//     </li>`;
+//   });
+//   todo__container.innerHTML = html;
 
-  todo__container.querySelectorAll("input[type=checkbox]").forEach((checkbox) => {
-    checkbox.addEventListener("change", async (e) => {
-      const id = e.target.id;
-      const completed = e.target.checked;
+//   todo__container.querySelectorAll("input[type=checkbox]").forEach((checkbox) => {
+//     checkbox.addEventListener("change", async (e) => {
+//       const id = e.target.id;
+//       const completed = e.target.checked;
 
-      try {
-        await update(id, {completed});
-        await loadTodos();
-      } catch (error) {console.error("Error al actualizar: ", error)};
-      });
-  });  
-}
+//       try {
+//         await update(id, {completed});
+//         await loadTodos();
+//       } catch (error) {console.error("Error al actualizar: ", error)};
+//       });
+//   });  
+// }

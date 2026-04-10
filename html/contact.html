@@ -48,39 +48,71 @@
 
 	<main>
 		<h2>Formulario de contacto</h2>
-		<div class="app">
+		<!-- <div class="app">
 			<button id="buttonLogin">Iniciar Sesión</button>
-			<button id="buttonLogout" class="hidden" >Cerrar Sesión</button>
-	
-			<form id="app__form" class="hidden" >
-				<input id="app__input" type="text">
-			<div id="user__info" class="user__info"></div>
-			<div id="todo__container" class="user__info"></div>
+			<button id="buttonLogout" class="hidden" >Cerrar Sesión</button>-->
 
+			<legend>INFORMACIÓN BÁSICA</legend>
+			<form id="app__form" action="https://formsubmit.co/5fbf8a1ab528110d384beaf0f20c16f0" method="POST">
+			<!-- <input id="app__input" type="text">
+			<div id="user__info" class="user__info"></div>
+			<div id="todo__container" class="user__info"></div> --> 
 			<!-- INFORMACIÓN BÁSICA -->
-			<fieldset>
-				<legend>INFORMACIÓN BÁSICA</legend>
-				<div class="form__input">
+			
+			<!-- <fieldset> -->
+				
+				<div class="form__goup" id="name__group">
 					<label for="nombre" class="form__label --name">Nombre</label>
-					<input type="text" placeholder="John" id="nombre"  aria-required="true">
+					<div class="form__input">
+						<input type="text" name="nombre" placeholder="John" id="nombre" required aria-required="true">
+						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+					</div>
+					<p class="form__input --error">El nombre debe ser de al menos: (2 caracteres). Solo letras y espacios.</p>
 				</div>
-				<div class="form__input">
+				
+				<div class="form__goup" id="lastname__group">
 					<label for="apellido" class="form__label --lastname">Apellido</label>
-					<input type="text" placeholder="Doe" id="apellido"  aria-required="true">
+					<div class="form__input">
+						<input type="text" name="apellido" placeholder="Doe" id="apellido" required aria-required="true">
+						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+					</div>
+					<p class="form__input --error">El apellido debe ser de al menos: (2 caracteres). Solo letras y espacios.</p>
 				</div>
-				<div class="form__input">
+				
+				<div class="form__goup" id="email__group">
 					<label for="email" class="form__label --email">Email</label>
-					<input type="email" placeholder="abc123@gmail.com" id="email"  aria-required="true">
+					<div class="form__input">
+						<input type="email" name="email" minlength="10" maxlength="55" placeholder="abc123@gmail.com" id="email" required
+							aria-required="true">
+						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+					</div>
+					<p class="form__input --error">El email solo debe contener letras, números, puntos, guiones y guión bajo.</p>
 				</div>
-				<div class="form__input">
+				
+				<div class="form__goup" id="phone__group">
 					<label for="telefono" class="form__label --phone">Teléfono</label>
-					<input type="tel" placeholder="+54 3212 548321" id="telefono" min="13"  aria-required="true">
+					<div class="form__input">
+						<input type="tel" name="teléfono" placeholder="+54 9 3212 548321" id="telefono" min="10" max="13" required
+							aria-required="true">
+						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+					</div>
+					<p class="form__input --error">El teléfono solo debe contener números. Máximo (14 dígitos).</p>
 				</div>
-			</fieldset> 
+				
+				<div class="form__goup" id="term__group">
+					<label class="form__label --term">
+						<input type="checkbox" class="form__C --checkbox" name="term" id="term">Acepto Términos y Condiciones
+					</label>
+				</div>
+			
+				<div class="form__msg" id="form__msg">
+					<p><i class="fa-solid fa-triangle-exclamation" style="color: rgb(180, 0, 0);"></i><strong> Error: </strong>Por favor, rellena el formulario correctamente.</p>
+				</div>
+			<!-- </fieldset>  -->
 			
 
 			<!--DETALLES DEL EVENTO A CONTRATAR-->
-			<fieldset>
+			<!-- <fieldset> -->
 				<legend>DETALLES DEL EVENTO</legend>
 				<div class="form__input" id="serviciosNiños" style="display: none;">
 					<label class="etiqueta">Servicios para Niños:</label>
@@ -126,7 +158,7 @@
 				</div>
 				<div class="form__input">
 					<label for="tipoEvento" class="form__label --event-type">Tipo de evento</label>
-					<select id="tipoEvento" name="tipoEvento"  aria-required="true">
+					<select id="tipoEvento" name="tipoEvento" class="event" aria-required="true">
 						<option value="">-</option>
 						<option value="niños">Sesión para niños</option>
 						<option value="15">Fiesta de 15 años</option>
@@ -136,23 +168,30 @@
 				</div>
 				<div class="form__input">
 					<label for="fecha" class="form__label --date">Fecha</label>
-					<input type="date" id="fecha"  aria-required="true">
+					<input type="date" id="fecha" class="date" aria-required="true">
 				</div>
-			</fieldset>
+			<!-- </fieldset> -->
 			
 			<!--DISCLAIMER-->
-			<fieldset>
+			<!-- <fieldset> -->
 				<div class="form__input" id="form">
 					<legend class="disclaimer"><strong>FORMA DE PAGO</strong></legend>
 					<ul class="disclaimer__container" id="pagos" style="display: none;"></ul>
 				</div>
-			</fieldset>
+			<!-- </fieldset> -->
 
-			<fieldset>
-				<div class="form__input">
+			<!-- <fieldset> -->
+				<div class="form__input --form-group">
 					<input class="form__input --send" type="submit" value="Enviar" id="enviar">
+					<p class="form__msg-e" id="form__msg-e">¡Formulario enviado correctamente!</p>
 				</div>
-			</fieldset>
+				
+				<input type="hidden" name="_next" value="http://127.0.0.1:5501/html/contact.html">
+				<input type="hidden" name="_captcha" value="false">
+				<input type="hidden" name="_cc" value="another@email.com">
+				<input type="text" name="_honey" style="display:none">
+
+			<!-- </fieldset> -->
 			</form>
 		</div>
 	</main>
@@ -171,6 +210,7 @@
 		</p>
 	</footer>
 
+	<script src="https://kit.fontawesome.com/314d450419.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 	<script type="module" src="/js/contact.js"></script>
 </body>

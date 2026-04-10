@@ -147,7 +147,10 @@ h2 {
 }
 
 form {
-	background: linear-gradient(#111, #0009);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+	background: linear-gradient(#000a, #0009);
 	padding: 1rem;
 	max-width: 1200px;
 	width: 80%;
@@ -158,18 +161,40 @@ form {
 }
 
 .form__input {
+  position: relative;
   padding: 1rem .5rem;
 }
 
-input, select {
+input {
 	width: 100%;
-	box-sizing: border-box;
+  height: 3.5rem;
+  line-height: 3.5rem;
 	padding: 1rem;
+  outline: none;
 	border: none;
-	border-bottom: 2px solid #fff;
+	border-bottom: 3px solid #fff;
+  border-radius: 3px;
 	box-shadow: 3px 3px 3px #000;
-	background-color: #222;
+	background-color: #111;
 	color: var(--text-color);
+  transition: all .3s ease-in;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+input:focus {
+ 	border-bottom: 3px solid #0075ff;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, .4);
+}
+
+.--send, .event, .date {
+  cursor: pointer;
+}
+
+.--send {
+  line-height: 0;
 }
 
 option {
@@ -178,7 +203,10 @@ option {
 }
 
 label {
+  display: block;
 	font-size: 1.2rem;
+  padding: 1rem.5rem;
+  cursor: pointer;
 }
 
 .checkbox {
@@ -234,16 +262,12 @@ fieldset {
 	margin: 1rem;
 }
 
-legend {
+legend { 
 	padding: .5rem;
 	color: #fff;
 	text-shadow: 0 0 2px #fff;
 	text-align: center;
 	font-size: 1.3rem;
-}
-
-.hidden {
-  display: none;
 }
 
 /* FOOTER SECTION */
@@ -275,6 +299,7 @@ footer p {
   border: none;
   border-radius: 5px;
   margin: auto;
+  cursor: pointer;
 }
 
 .button:hover {
