@@ -8,7 +8,6 @@
 	<link type="image/png" rel="icon" href="/assets/favicon/Logo/logo.png">
 	<link rel="stylesheet" href="/css/fonts.css">
 	<link rel="stylesheet" href="/css/contact.css">
-
 	<title>VC-Photograph</title>
 </head>
 
@@ -48,15 +47,8 @@
 
 	<main>
 		<h2>Formulario de contacto</h2>
-		<!-- <div class="app">
-			<button id="buttonLogin">Iniciar Sesión</button>
-			<button id="buttonLogout" class="hidden" >Cerrar Sesión</button>-->
-
 			<form id="app__form" action="https://formsubmit.co/5fbf8a1ab528110d384beaf0f20c16f0" method="POST">
-			<!-- <input id="app__input" type="text">
-			<div id="user__info" class="user__info"></div>
-			<div id="todo__container" class="user__info"></div> --> 
-							
+				
 				<div class="form__goup" id="name__group">
 					<label for="nombre" class="form__label --name">Nombre</label>
 					<div class="form__input">
@@ -99,6 +91,7 @@
 					<label for="lugar" class="form__label">Lugar</label>
 					<input type="text" id="lugar" placeholder="Rosario"  aria-required="true">
 				</div>
+				
 				<div class="form__input">
 					<label for="tipoEvento" class="form__label --event-type">Tipo de evento</label>
 					<select id="tipoEvento" name="tipoEvento" class="event" aria-required="true">
@@ -108,6 +101,7 @@
 						<option value="bodas">Bodas</option>
 					</select>
 				</div>
+				
 				<div class="form__input">
 					<label for="fecha" class="form__label --date">Fecha</label>
 					<input type="date" id="fecha" class="date" aria-required="true">
@@ -116,44 +110,76 @@
 				<div class="form__input --select" id="serviciosNiños" style="display: none;">
 					<label class="etiqueta">Servicios para Niños:</label>
 					<div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="interior">Interior</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="exterior">Exterior</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="fotos_impresas">Fotos Impresas
-							(CANTIDAD y MEDIDA)</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="fotos_digitales">Fotos
-							Digitales</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="interior">Interior
+						</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="exterior">Exterior
+						</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="fotos_impresas">Fotos Impresas (CANTIDAD y MEDIDA)
+						</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="fotos_digitales">Fotos Digitales
+						</label>
 					</div>
 				</div>
+
 				<div class="form__input --select" id="servicios15" style="display: none;">
 					<label class="etiqueta">Servicios para Fiestas de 15:</label>
 					<div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="enchastre">Enchastre</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="enchastre">Enchastre
+						</label>
 					</div>
 					<div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="book_fotos">Book de Fotos</label>
-					</div><div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="cobertura_fiesta">Cobertura de
-							Fiesta</label>
-						</div><div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]"
-								value="gigantografia">Gigantografía</label>
-							</div><div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="libro_firmas">Libro de
-							Firmas</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="book_fotos">Book de Fotos
+						</label>
+					</div>
+					<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="cobertura_fiesta">Cobertura de Fiesta
+						</label>
+					</div>
+					<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="gigantografia">Gigantografía
+						</label>
+						</div>
+						<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="libro_firmas">Libro de Firmas
+						</label>
 					</div>
 				</div>
+
 				<div class="form__input --select" id="serviciosBodas" style="display: none;">
 					<label class="etiqueta">Servicios para Bodas:</label>
 					<div class="checkbox__container">
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="fotos_impresas">Fotos
-							Impresas</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="book_fotos">Book de Fotos</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="cobertura_fiesta">Cobertura de
-							Fiesta</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="casamiento_civil">Casamiento por
-							Civil</label>
-						<label class="checkbox__label"><input type="checkbox" class="checkbox" name="servicios[]" value="casamiento_iglesia">Casamiento por
-							Iglesia</label>
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="fotos_impresas">Fotos Impresas
+						</label>
+					</div>
+					<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="book_fotos">Book de Fotos
+						</label>
+					</div>
+					<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="cobertura_fiesta">Cobertura de Fiesta
+						</label>
+					</div>
+					<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="casamiento_civil">Casamiento por Civil
+						</label>
+					</div>
+					<div class="checkbox__container">
+						<label class="checkbox__label">
+							<input type="checkbox" class="checkbox" name="servicios[]" value="casamiento_iglesia">Casamiento por Iglesia
+						</label>
 					</div>
 				</div>
 			

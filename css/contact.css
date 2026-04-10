@@ -366,6 +366,14 @@ label {
 	text-align: center;
 }
 
+legend { 
+	padding: .5rem;
+	color: #fff;
+	text-shadow: 0 0 2px #fff;
+	text-align: center;
+	font-size: 1.3rem;
+}
+
 /* FOOTER SECTION */
 
 footer {
