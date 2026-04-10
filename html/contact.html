@@ -52,12 +52,10 @@
 			<button id="buttonLogin">Iniciar Sesión</button>
 			<button id="buttonLogout" class="hidden" >Cerrar Sesión</button>-->
 
-			<legend>INFORMACIÓN BÁSICA</legend>
 			<form id="app__form" action="https://formsubmit.co/5fbf8a1ab528110d384beaf0f20c16f0" method="POST">
 			<!-- <input id="app__input" type="text">
 			<div id="user__info" class="user__info"></div>
 			<div id="todo__container" class="user__info"></div> --> 
-			<!-- INFORMACIÓN BÁSICA -->
 			
 			<!-- <fieldset> -->
 				
@@ -86,7 +84,7 @@
 							aria-required="true">
 						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
 					</div>
-					<p class="form__input --error">El email solo debe contener letras, números, puntos, guiones y guión bajo.</p>
+					<p class="form__input --error">El email debe contener letras, números, puntos, guión y guión bajo.</p>
 				</div>
 				
 				<div class="form__goup" id="phone__group">
@@ -98,22 +96,9 @@
 					</div>
 					<p class="form__input --error">El teléfono solo debe contener números. Máximo (14 dígitos).</p>
 				</div>
-				
-				<div class="form__goup" id="term__group">
-					<label class="form__label --term">
-						<input type="checkbox" class="form__C --checkbox" name="term" id="term">Acepto Términos y Condiciones
-					</label>
-				</div>
-			
-				<div class="form__msg" id="form__msg">
-					<p><i class="fa-solid fa-triangle-exclamation" style="color: rgb(180, 0, 0);"></i><strong> Error: </strong>Por favor, rellena el formulario correctamente.</p>
-				</div>
 			<!-- </fieldset>  -->
 			
-
-			<!--DETALLES DEL EVENTO A CONTRATAR-->
 			<!-- <fieldset> -->
-				<legend>DETALLES DEL EVENTO</legend>
 				<div class="form__input" id="serviciosNiños" style="display: none;">
 					<label class="etiqueta">Servicios para Niños:</label>
 					<div class="checkbox__container">
@@ -181,6 +166,16 @@
 			<!-- </fieldset> -->
 
 			<!-- <fieldset> -->
+				<div class="form__group --term-group" id="term__group">
+					<label class="form__label --term">
+						<input type="checkbox" class="form__C --checkbox" name="term" id="term">Acepto Términos y Condiciones
+					</label>
+				</div>
+			
+				<div class="form__msg" id="form__msg">
+					<p><i class="fa-solid fa-triangle-exclamation" style="color: rgb(180, 0, 0);"></i><strong> Error: </strong>Por favor, rellena el formulario correctamente.</p>
+				</div>
+
 				<div class="form__input --form-group">
 					<input class="form__input --send" type="submit" value="Enviar" id="enviar">
 					<p class="form__msg-e" id="form__msg-e">¡Formulario enviado correctamente!</p>
@@ -192,8 +187,8 @@
 				<input type="text" name="_honey" style="display:none">
 
 			<!-- </fieldset> -->
-			</form>
 		</div>
+	</form>
 	</main>
 
 	<footer>

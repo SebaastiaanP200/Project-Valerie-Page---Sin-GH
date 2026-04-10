@@ -151,7 +151,7 @@ form {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 	background: linear-gradient(#000a, #0009);
-	padding: 1rem;
+	padding: 1rem 2.5rem;
 	max-width: 1200px;
 	width: 80%;
 	margin: 1rem auto;
@@ -162,10 +162,9 @@ form {
 
 .form__input {
   position: relative;
-  padding: 1rem .5rem;
 }
 
-input {
+input, select {
 	width: 100%;
   height: 3.5rem;
   line-height: 3.5rem;
@@ -189,12 +188,58 @@ input:focus {
   box-shadow: 3px 0 10px rgba(0, 0, 0, .4);
 }
 
-.--send, .event, .date {
-  cursor: pointer;
+.--error {
+  display: none;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.error-activo {
+  display: block;
+}
+
+.--validastate {
+  position: absolute;
+  top: 1.1rem;
+  right: 1rem;
+  z-index: 100;
+  font-size: 1rem;
+  opacity: 0;
+}
+
+.--term {
+  padding: 0;
+}
+
+.--checkbox {
+  margin-right: 1rem;
+  width: auto;
+  height: auto;
+  accent-color: #222;
+}
+
+.--term-group, .form__msg, .--form-group {
+  grid-column: span 2;
+}
+
+.form__msg {
+  height: 3.5rem;
+  line-height: 3.5rem;
+  background-color: #410;
+  padding: 0 .5rem;
+  border-radius: 3px;
+}
+
+.form__msg p {
+  margin: 0;
 }
 
 .--send {
   line-height: 0;
+}
+
+.event, .date, .--send {
+  cursor: pointer;
 }
 
 option {
