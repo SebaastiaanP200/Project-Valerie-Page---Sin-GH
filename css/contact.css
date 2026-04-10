@@ -151,7 +151,7 @@ form {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 	background: linear-gradient(#000a, #0009);
-	padding: 1rem 2.5rem;
+	padding: 1.5rem 2.5rem;
 	max-width: 1200px;
 	width: 80%;
 	margin: 1rem auto;
@@ -164,7 +164,7 @@ form {
   position: relative;
 }
 
-input, select {
+input, select, button {
 	width: 100%;
   height: 3.5rem;
   line-height: 3.5rem;
@@ -194,7 +194,7 @@ input:focus {
   font-size: 1rem;
 }
 
-.error-activo {
+.error-active {
   display: block;
 }
 
@@ -230,16 +230,46 @@ input:focus {
   border-radius: 3px;
 }
 
+.form__msg-active {
+  display: block;
+}
+
 .form__msg p {
   margin: 0;
 }
 
-.--send {
-  line-height: 0;
-}
-
 .event, .date, .--send {
   cursor: pointer;
+}
+
+.--form-group{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.--send {
+  width: 35%;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 0;
+  transition: all .1s ease;
+}
+
+.--send:hover {
+  box-shadow: 3px 3px 3px #555;
+}
+
+.form__msg-e {
+  font-size: 1.1rem;
+  color: #11e200;
+  display: none;
+  margin-top: 1rem;
+}
+
+.form__msg-e-active {
+  display: block;
 }
 
 option {
