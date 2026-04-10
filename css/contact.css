@@ -153,7 +153,7 @@ form {
 	background: linear-gradient(#000a, #0009);
 	padding: 1.5rem 2.5rem;
 	max-width: 1200px;
-	width: 80%;
+	width: 60%;
 	margin: 1rem auto;
 	box-shadow: 0 0 2px #fff;
 	border-radius: 10px;
@@ -200,10 +200,10 @@ input:focus {
 
 .--validastate {
   position: absolute;
-  top: 1.1rem;
-  right: 1rem;
+  top: 1.2rem;
+  right: .5rem;
   z-index: 100;
-  font-size: 1rem;
+  font-size: 1.1rem;
   opacity: 0;
 }
 
@@ -236,6 +236,23 @@ input:focus {
 
 .form__msg p {
   margin: 0;
+}
+
+.--select {
+  grid-column: span 2;
+  width: 65%;
+  margin: 0 auto;
+  padding: 0;
+  justify-content: center;
+  text-align: center;
+}
+
+.--placement {
+  grid-column: span 2;
+}
+
+.--pay {
+  grid-column: span 2;
 }
 
 .event, .date, .--send {
@@ -272,6 +289,24 @@ input:focus {
   display: block;
 }
 
+.form__group-correct .--validastate {
+  color: #1ed12d;
+  opacity: 1;
+}
+
+.form__group-incorrect .form__label {
+  color: #bb2929;
+}
+
+.form__group-incorrect .--validastate {
+  color: #bb2929;
+  opacity: 1;
+}
+
+.form__group-incorrect .-- {
+  border-bottom: 3px solid #bb2929;
+}
+
 option {
 	background-color: #222;
 	color: #fff;
@@ -285,21 +320,22 @@ label {
 }
 
 .checkbox {
-	width: auto;
-	height: auto;
-	box-shadow: none;
+  margin-right: 1rem;
+  width: auto;
+  height: auto;
+  accent-color: #333;
 }
 
 .checkbox__container {
-	background-color: #111;
-	padding: 1rem;
+	background: linear-gradient(to bottom, #222, #0009);
+	padding: 0;
 	border-radius: 5px;
-	box-shadow: 0 0 2px #fff;
+	box-shadow: 0 0 5px #444;
 	margin: 1rem auto;
-	line-height: 1.6;
+	line-height: 1;
 }
 
-.checkbox__container label {
+.checkbox__label {
 	display: block;
 }
 
@@ -328,21 +364,6 @@ label {
 	border-radius: 5px;
 	animation: aparecer .4s forwards;  
 	text-align: center;
-}
-
-fieldset {
-	border: 1px solid #777;
-	border-radius: 5px;
-	padding: .5rem;
-	margin: 1rem;
-}
-
-legend { 
-	padding: .5rem;
-	color: #fff;
-	text-shadow: 0 0 2px #fff;
-	text-align: center;
-	font-size: 1.3rem;
 }
 
 /* FOOTER SECTION */
@@ -414,6 +435,10 @@ footer p {
 		width: 85%;
 	}
 
+  .--select {
+    width: 100%;
+  }
+
 	footer p {
     padding: 1rem;
   }
@@ -445,7 +470,7 @@ footer p {
 	form {
 		width: 90%;
 	}
-
+  
 	footer p {
     padding: 1rem;
   }
@@ -497,8 +522,14 @@ footer p {
 	}
 
 	form {
+    display: flex;
+    flex-direction: column;
 		width: 96%;
 	}
+
+  .--send {
+    width: 100%;
+  }
 
 	legend {
 		font-size: 1.2rem;
