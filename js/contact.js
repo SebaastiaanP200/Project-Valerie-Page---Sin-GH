@@ -20,8 +20,10 @@ const seccionesServicios = {
 // 2. CONFIGURACIÓN Y EXPRESIONES
 const expresiones = {
   nombre: /^[a-zA-ZÀ-ÿ\s]{2,40}$/,
+  apellido: /^[a-zA-ZÀ-ÿ\s]{2,40}$/,
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-  telefono: /^\d{7,14}$/
+  telefono: /^(\+?\d{1,3})?[-. ]?\(?\d{1,4}\)?[-. ]?\d{1,4}[-. ]?\d{1,4}[-. ]?\d{1,4}$/,
+  direccion: /^[a-zA-ZÀ-ÿ0-9\s,.-]{5,50}$/
 };
 
 // 3. LÓGICA DE DATOS (Async)
@@ -74,21 +76,100 @@ fecha.addEventListener("input", actualizarInterfazValidacion);
 checkboxes.forEach(cb => cb.addEventListener("change", actualizarInterfazValidacion));
 
 const formValidate = (e) => {
-  switch (e.target.name) {
+    const valor = e.target.value;
+  const inputName = e.target.name;
+
+  // Si el campo está vacío, reseteamos el grupo y salimos
+  if (valor === "") {
+    const ids = {
+      "nombre": "name__group",
+      "apellido": "lastname__group",
+      "email": "email__group",
+      "teléfono": "phone__group",
+      "lugar": "placement__group"
+    };
+    const grupoId = ids[inputName];
+    if (grupoId) {
+      document.getElementById(grupoId).classList.remove("form__group-correct", "form__group-incorrect");
+      const icono = document.querySelector(`#${grupoId} i`);
+      const texto = document.querySelector(`#${grupoId} p`);
+      if (icono) icono.classList.remove("fa-circle-check", "fa-circle-xmark");
+      if (texto) texto.classList.remove("error-active");
+    }
+    return; // Aquí corta y no entra al switch
+  }
+
+  // Si no está vacío, sigue tu lógica original
+  switch (inputName) {
     case "nombre":
       if (expresiones.nombre.test(e.target.value)) {
-
+        document.getElementById("name__group").classList.add("form__group-correct");
+        document.getElementById("name__group").classList.remove("form__group-incorrect");
+        document.querySelector("#name__group i").classList.remove("fa-circle-xmark");
+        document.querySelector("#name__group i").classList.add("fa-circle-check");
+        document.querySelector("#name__group p").classList.remove("error-active");
       } else {
         document.getElementById("name__group").classList.add("form__group-incorrect");
+        document.querySelector("#name__group i").classList.add("fa-circle-xmark");
+        document.querySelector("#name__group i").classList.remove("fa-circle-check");
+        document.querySelector("#name__group p").classList.add("error-active");
       }
     break;
-    case "apellido": console.log("funciona")
+    case "apellido": 
+    if (expresiones.apellido.test(e.target.value)) {
+        document.getElementById("lastname__group").classList.add("form__group-correct");
+        document.getElementById("lastname__group").classList.remove("form__group-incorrect");
+        document.querySelector("#lastname__group i").classList.remove("fa-circle-xmark");
+        document.querySelector("#lastname__group i").classList.add("fa-circle-check");
+        document.querySelector("#lastname__group p").classList.remove("error-active");
+      } else {
+        document.getElementById("lastname__group").classList.add("form__group-incorrect");
+        document.querySelector("#lastname__group i").classList.add("fa-circle-xmark");
+        document.querySelector("#lastname__group i").classList.remove("fa-circle-check");
+        document.querySelector("#lastname__group p").classList.add("error-active");
+      }
     break;
-    case "email": console.log("funciona")
+    case "email": 
+    if (expresiones.correo.test(e.target.value)) {
+        document.getElementById("email__group").classList.add("form__group-correct");
+        document.getElementById("email__group").classList.remove("form__group-incorrect");
+        document.querySelector("#email__group i").classList.remove("fa-circle-xmark");
+        document.querySelector("#email__group i").classList.add("fa-circle-check");
+        document.querySelector("#email__group p").classList.remove("error-active");
+      } else {
+        document.getElementById("email__group").classList.add("form__group-incorrect");
+        document.querySelector("#email__group i").classList.add("fa-circle-xmark");
+        document.querySelector("#email__group i").classList.remove("fa-circle-check");
+        document.querySelector("#email__group p").classList.add("error-active");
+      }
     break;
-    case "teléfono": console.log("funciona")
+    case "teléfono": 
+    if (expresiones.telefono.test(e.target.value)) {
+        document.getElementById("phone__group").classList.add("form__group-correct");
+        document.getElementById("phone__group").classList.remove("form__group-incorrect");
+        document.querySelector("#phone__group i").classList.remove("fa-circle-xmark");
+        document.querySelector("#phone__group i").classList.add("fa-circle-check");
+        document.querySelector("#phone__group p").classList.remove("error-active");
+      } else {
+        document.getElementById("phone__group").classList.add("form__group-incorrect");
+        document.querySelector("#phone__group i").classList.add("fa-circle-xmark");
+        document.querySelector("#phone__group i").classList.remove("fa-circle-check");
+        document.querySelector("#phone__group p").classList.add("error-active");
+      }
     break;
-    case "lugar": console.log("funciona")
+    case "lugar": 
+    if (expresiones.direccion.test(e.target.value)) {
+        document.getElementById("placement__group").classList.add("form__group-correct");
+        document.getElementById("placement__group").classList.remove("form__group-incorrect");
+        document.querySelector("#placement__group i").classList.remove("fa-circle-xmark");
+        document.querySelector("#placement__group i").classList.add("fa-circle-check");
+        document.querySelector("#placement__group p").classList.remove("error-active");
+      } else {
+        document.getElementById("placement__group").classList.add("form__group-incorrect");
+        document.querySelector("#placement__group i").classList.add("fa-circle-xmark");
+        document.querySelector("#placement__group i").classList.remove("fa-circle-check");
+        document.querySelector("#placement__group p").classList.add("error-active");
+      }
     break;
   }
 }

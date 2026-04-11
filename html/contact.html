@@ -49,49 +49,53 @@
 		<h2>Formulario de contacto</h2>
 			<form id="form__c" action="https://formsubmit.co/5fbf8a1ab528110d384beaf0f20c16f0" method="POST">
 				
-				<div class="form__goup" id="name__group">
+				<div class="form__group" id="name__group">
 					<label for="nombre" class="form__label --name">Nombre</label>
 					<div class="form__input">
 						<input type="text" name="nombre" placeholder="John" id="nombre" required aria-required="true">
-						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+						<i class="form__i --validastate fa-regular fa-circle-xmark"></i>
 					</div>
-					<p class="form__input --error">El nombre debe ser de al menos: (2 caracteres). Solo letras y espacios.</p>
+					<p class="form__input --error">El nombre debe ser de al menos: (2 caracteres), y contener solo letras y espacios.</p>
 				</div>
 				
-				<div class="form__goup" id="lastname__group">
+				<div class="form__group" id="lastname__group">
 					<label for="apellido" class="form__label --lastname">Apellido</label>
 					<div class="form__input">
 						<input type="text" name="apellido" placeholder="Doe" id="apellido" required aria-required="true">
-						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+						<i class="form__i --validastate fa-regular fa-circle-xmark"></i>
 					</div>
 					<p class="form__input --error">El apellido debe ser de al menos: (2 caracteres). Solo letras y espacios.</p>
 				</div>
 				
-				<div class="form__goup" id="email__group">
+				<div class="form__group" id="email__group">
 					<label for="email" class="form__label --email">Email</label>
 					<div class="form__input">
 						<input type="email" name="email" minlength="10" maxlength="55" placeholder="abc123@gmail.com" id="email" required
 							aria-required="true">
-						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+						<i class="form__i --validastate fa-regular fa-circle-xmark"></i>
 					</div>
 					<p class="form__input --error">El email debe contener letras, números, puntos, guión y guión bajo.</p>
 				</div>
 				
-				<div class="form__goup" id="phone__group">
+				<div class="form__group" id="phone__group">
 					<label for="telefono" class="form__label --phone">Teléfono</label>
 					<div class="form__input">
-						<input type="tel" name="teléfono" placeholder="+54 9 3212 548321" id="telefono" min="10" max="13" required
+						<input type="tel" name="teléfono" placeholder="+54 9 3212 548321" id="telefono" maxlength="14" required
 							aria-required="true">
-						<i class="form__i --validastate fa-regular fa-circle-xmark" style="color: rgb(170, 0, 0);"></i>
+						<i class="form__i --validastate fa-regular fa-circle-xmark"></i>
 					</div>
-					<p class="form__input --error">El teléfono solo debe contener números. Máximo (14 dígitos).</p>
+					<p class="form__input --error">El teléfono solo debe contener números. Máximo (14 dígitos), incluyendo el símbolo (+).</p>
 				</div>
 			
-				<div class="form__input --placement">
-					<label for="lugar" class="form__label">Lugar</label>
-					<input type="text" name="lugar" id="lugar" placeholder="Rosario"  aria-required="true">
+				<div class="form__group --placement" id="placement__group">
+					<label for="lugar" class="form__label --placement">Lugar</label>
+					<div class="form__input">				
+						<input type="text" name="lugar" id="lugar" placeholder="Rosario" maxlength="51" aria-required="true">
+						<i class="form__i --validastate fa-regular fa-circle-xmark"></i>
+					</div>
+					<p class="form__input --error">El lugar debe contener solo letras y números, sin caracteres especiales.</p>
 				</div>
-				
+
 				<div class="form__input">
 					<label for="type-event" class="form__label --event-type">Tipo de evento</label>
 					<select id="form__input type-event" name="tipoEvento" class="event" aria-required="true">

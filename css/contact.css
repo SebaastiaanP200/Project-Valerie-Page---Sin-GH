@@ -196,6 +196,7 @@ input:focus {
 
 .error-active {
   display: block;
+  color: #bb2929;
 }
 
 .--validastate {
@@ -295,6 +296,15 @@ input:focus {
   display: block;
 }
 
+.form__group-correct .form__label {
+  color: #1ed12d;
+}
+
+.form__group-correct input {
+  color: #1ed12d;
+  border-bottom: 3px solid #1ed12d;
+}
+
 .form__group-correct .--validastate {
   color: #1ed12d;
   opacity: 1;
@@ -311,10 +321,6 @@ input:focus {
 .form__group-incorrect .--validastate {
   color: #bb2929;
   opacity: 1;
-}
-
-.form__group-incorrect .-- {
-  border-bottom: 3px solid #bb2929;
 }
 
 option {
