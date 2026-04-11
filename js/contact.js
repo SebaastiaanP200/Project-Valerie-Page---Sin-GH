@@ -1,125 +1,110 @@
-const containerTxtC = document.querySelector(".disclaimer__container");
-
-const getTxtC = async () => {
-  try {
-    const res = await axios.get("../txt.json");
-
-    const disclaimerEntry = res.data.find((info) => info.disclaimer);
-    const disclaimerArray = disclaimerEntry ? disclaimerEntry.disclaimer : [];
-
-    const contactContainerTxt = document.createDocumentFragment();
-    disclaimerArray.forEach((info) => {
-      const li = document.createElement("LI");
-      li.classList.add("disclaimer__text");
-      li.innerHTML = info.disclaimer;
-      contactContainerTxt.appendChild(li);
-    });
-    containerTxtC.appendChild(contactContainerTxt);
-  } catch (e) {
-    console.error("Error durante la carga: ", e);
-  }
-};
-
-getTxtC();
-
-const serviciosNiños = document.getElementById("serviciosNiños");
-const servicios15 = document.getElementById("servicios15");
-const serviciosBodas = document.getElementById("serviciosBodas");
-
-const disclaimerTitulo = document.querySelector(".disclaimer");
-const disclaimerContenido = document.getElementById("pagos");
-
+// 1. SELECTORES (Agrupados por contexto)
+const formC = document.getElementById("form__c");
+const inputs = document.querySelectorAll('#form__c input');
 const tipoEvento = document.getElementById("tipoEvento");
 const lugar = document.getElementById("lugar");
 const fecha = document.getElementById("fecha");
+const checkboxes = document.querySelectorAll('input[name="servicios[]"]');
 
-const checkbox = document.querySelectorAll('input[name="servicios[]"]');
-
-const validarCheckbox = () => {
-  return Array.from(checkbox).some((checkbox) => checkbox.checked);
+// Contenedores de UI
+const containerTxtC = document.querySelector(".disclaimer__container");
+const disclaimerTitulo = document.querySelector(".disclaimer");
+const disclaimerContenido = document.getElementById("pagos");
+const seccionesServicios = {
+  niños: document.getElementById("serviciosNiños"),
+  15: document.getElementById("servicios15"),
+  bodas: document.getElementById("serviciosBodas")
 };
 
-const validarCampos = () => {
-  if (tipoEvento.value && lugar.value && fecha.value && validarCheckbox()) {
-    disclaimerContenido.style.display = "block";
-    disclaimerTitulo.style.border = "1px solid #eee";
-    disclaimerTitulo.style.color = "#fff";
-  } else {
-    disclaimerContenido.style.display = "none";
-    disclaimerTitulo.style.color = "#444";
-  }
-};
-
-const mostrarServicios = () => {
-  const valor = tipoEvento.value;
-
-  serviciosNiños.style.display = "none";
-  servicios15.style.display = "none";
-  serviciosBodas.style.display = "none";
-  disclaimerContenido.style.display = "none";
-
-  if (valor === "niños") {
-    serviciosNiños.style.display = "block";
-  } else if (valor === "15") {
-    servicios15.style.display = "block";
-  } else if (valor === "bodas") {
-    serviciosBodas.style.display = "block";
-  }
-};
-
-tipoEvento.addEventListener("change", () => {
-  mostrarServicios();
-  validarCampos();
-});
-
-lugar.addEventListener("input", validarCampos);
-fecha.addEventListener("input", validarCampos);
-checkbox.forEach((checkbox) =>
-  checkbox.addEventListener("change", validarCampos),
-);
-
-const enviarFormulario = document.getElementById("form__c");
-enviarFormulario.addEventListener("submit", (e) => {
-  e.preventDefault();
-  try {
-    const name = document.getElementById("nombre").value.trim();
-    const lastname = document.getElementById("apellido").value.trim(); 
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("telefono").value.trim();
-    
-    if (name.length < 2 && lastname.length < 2) {
-      alert("Los caracteres son menores a los requeridos");
-    }
-
-    // email.addEventListener("click", () => {
-
-    // });
-
-    // phone.addEventListener("click", () => {
-
-    // });
-    
-    if (!validarCheckbox()) {
-      throw "Debe seleccionar el tipo de servicio antes de poder enviar.";
-    } else if (!tipoEvento.value || !lugar.value || !fecha.value) {
-      throw "Debe completar todos los campos requeridos antes de poder enviar.";
-    } else {
-      alert("Formulario enviado correctamente.");
-    }
-    enviarFormulario.submit();
-  } catch (e) {
-    alert(e);
-  }
-});
-
+// 2. CONFIGURACIÓN Y EXPRESIONES
 const expresiones = {
-	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	password: /^.{4,12}$/, // 4 a 12 digitos.
-	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+  nombre: /^[a-zA-ZÀ-ÿ\s]{2,40}$/,
+  correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  telefono: /^\d{7,14}$/
+};
+
+// 3. LÓGICA DE DATOS (Async)
+const cargarDisclaimer = async () => {
+  try {
+    const { data } = await axios.get("../txt.json");
+    const entry = data.find(info => info.disclaimer);
+    if (!entry) return;
+
+    const fragment = document.createDocumentFragment();
+    entry.disclaimer.forEach(info => {
+      const li = document.createElement("LI");
+      li.classList.add("disclaimer__text");
+      li.innerHTML = info.disclaimer;
+      fragment.appendChild(li);
+    });
+    containerTxtC.appendChild(fragment);
+  } catch (e) {
+    console.error("Error cargando TXT:", e);
+  }
+};
+
+// 4. FUNCIONES DE VALIDACIÓN Y UI
+const hayCheckboxesMarcados = () => Array.from(checkboxes).some(i => i.checked);
+
+const actualizarInterfazValidacion = () => {
+  const formValido = tipoEvento.value && lugar.value && fecha.value && hayCheckboxesMarcados();
+  
+  disclaimerContenido.style.display = formValido ? "block" : "none";
+  disclaimerTitulo.style.border = formValido ? "1px solid #eee" : "none";
+  disclaimerTitulo.style.color = formValido ? "#fff" : "#444";
+};
+
+const gestionarVisibilidadServicios = () => {
+  const valor = tipoEvento.value;
+  // Ocultar todos primero
+  Object.values(seccionesServicios).forEach(el => el.style.display = "none");
+  
+  if (seccionesServicios[valor]) {
+    seccionesServicios[valor].style.display = "block";
+  }
+  actualizarInterfazValidacion();
+};
+
+// 5. EVENT LISTENERS
+tipoEvento.addEventListener("change", gestionarVisibilidadServicios);
+lugar.addEventListener("input", actualizarInterfazValidacion);
+fecha.addEventListener("input", actualizarInterfazValidacion);
+checkboxes.forEach(cb => cb.addEventListener("change", actualizarInterfazValidacion));
+
+const formValidate = () => {
+  console.log("as");
 }
 
+inputs.forEach((input) => {
+  input.addEventListener("keyup", formValidate);
+  input.addEventListener("blur", formValidate);
+});
 
+formC.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const nombre = document.getElementById("nombre").value.trim();
+  const apellido = document.getElementById("apellido").value.trim();
+  
+  try {
+    // Validaciones lógicas
+    if (!expresiones.nombre.test(nombre) || !expresiones.nombre.test(apellido)) {
+      throw "Nombre o apellido inválido (mínimo 2 caracteres).";
+    }
+    if (!hayCheckboxesMarcados()) {
+      throw "Debe seleccionar al menos un servicio.";
+    }
+    if (!tipoEvento.value || !lugar.value || !fecha.value) {
+      throw "Complete todos los campos del evento.";
+    }
 
+    alert("¡Formulario enviado con éxito!");
+    formC.submit(); 
+  } catch (error) {
+    alert(error);
+  }
+});
+
+// Inicialización
+cargarDisclaimer();
 
