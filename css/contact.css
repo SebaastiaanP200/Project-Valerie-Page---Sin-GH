@@ -304,6 +304,10 @@ input:focus {
   color: #bb2929;
 }
 
+.form__group-incorrect input {
+  color: #bb2929;
+  border-bottom: 3px solid #bb2929;
+}
 .form__group-incorrect .--validastate {
   color: #bb2929;
   opacity: 1;
@@ -368,7 +372,6 @@ label {
 
 .disclaimer__text {
 	list-style: none;
-	
 	text-shadow: 2px 2px 3px #000, 0 0 2px #fff;
 	border-radius: 5px;
 	animation: aparecer .4s forwards;  
@@ -490,6 +493,26 @@ footer p {
 		width: 90%;
 	}
   
+  .form__msg {
+    height: 4rem;
+    line-height: 4rem; 
+  }
+
+  .form__msg p {
+    margin: 0 auto;
+    font-size: .85rem;
+    text-wrap: pretty;
+  }
+
+  .disclaimer {
+    width: 100%;
+  }
+
+  .disclaimer__text {
+    font-size: 1.1rem;
+    padding: .5rem 1rem;
+  }
+
 	footer p {
     padding: 1rem;
   }

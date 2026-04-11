@@ -1,7 +1,7 @@
 // 1. SELECTORES (Agrupados por contexto)
 const formC = document.getElementById("form__c");
 const inputs = document.querySelectorAll('#form__c input');
-const tipoEvento = document.getElementById("tipoEvento");
+const tipoEvento = document.getElementById("form__input type-event");
 const lugar = document.getElementById("lugar");
 const fecha = document.getElementById("fecha");
 const checkboxes = document.querySelectorAll('input[name="servicios[]"]');
@@ -73,8 +73,24 @@ lugar.addEventListener("input", actualizarInterfazValidacion);
 fecha.addEventListener("input", actualizarInterfazValidacion);
 checkboxes.forEach(cb => cb.addEventListener("change", actualizarInterfazValidacion));
 
-const formValidate = () => {
-  console.log("as");
+const formValidate = (e) => {
+  switch (e.target.name) {
+    case "nombre":
+      if (expresiones.nombre.test(e.target.value)) {
+
+      } else {
+        document.getElementById("name__group").classList.add("form__group-incorrect");
+      }
+    break;
+    case "apellido": console.log("funciona")
+    break;
+    case "email": console.log("funciona")
+    break;
+    case "teléfono": console.log("funciona")
+    break;
+    case "lugar": console.log("funciona")
+    break;
+  }
 }
 
 inputs.forEach((input) => {
