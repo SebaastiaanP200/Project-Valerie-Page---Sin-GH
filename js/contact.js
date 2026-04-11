@@ -7,6 +7,7 @@ const fecha = document.getElementById("fecha");
 const checkboxes = document.querySelectorAll('input[name="servicios[]"]');
 
 // Contenedores de UI
+const gridContainer = document.getElementById("form__pay");
 const containerTxtC = document.querySelector(".disclaimer__container");
 const disclaimerTitulo = document.querySelector(".disclaimer");
 const disclaimerContenido = document.getElementById("pagos");
@@ -14,7 +15,7 @@ const seccionesServicios = {
   niños: document.getElementById("serviciosNiños"),
   15: document.getElementById("servicios15"),
   bodas: document.getElementById("serviciosBodas")
-};
+}; 
 
 // 2. CONFIGURACIÓN Y EXPRESIONES
 const expresiones = {
@@ -39,7 +40,7 @@ const cargarDisclaimer = async () => {
     });
     containerTxtC.appendChild(fragment);
   } catch (e) {
-    console.error("Error cargando TXT:", e);
+    console.error("Error cargando TXT: ", e);
   }
 };
 
@@ -50,6 +51,7 @@ const actualizarInterfazValidacion = () => {
   const formValido = tipoEvento.value && lugar.value && fecha.value && hayCheckboxesMarcados();
   
   disclaimerContenido.style.display = formValido ? "block" : "none";
+  gridContainer.style.gridColumn = formValido ? "span 1" : "span 2";
   disclaimerTitulo.style.border = formValido ? "1px solid #eee" : "none";
   disclaimerTitulo.style.color = formValido ? "#fff" : "#444";
 };

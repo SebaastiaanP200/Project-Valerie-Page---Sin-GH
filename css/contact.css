@@ -239,13 +239,15 @@ input:focus {
   margin: 0;
 }
 
+.services {
+  background-color: #111;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #444;
+}
+
 .--select {
-  grid-column: span 2;
-  width: 65%;
-  margin: 0 auto;
-  padding: 0;
-  justify-content: center;
-  text-align: center;
+  grid-column: span 1;
+  width: 100%;
 }
 
 .--placement {
@@ -254,6 +256,9 @@ input:focus {
 
 .--pay {
   grid-column: span 2;
+  line-height: 1.7rem;
+  width: 100%;
+  justify-content: center;
 }
 
 .event, .date, .--send {
@@ -267,7 +272,7 @@ input:focus {
 }
 
 .--send {
-  width: 35%;
+  width: 40%;
   margin-bottom: 1rem;
   font-size: 1rem;
   font-weight: 600;
@@ -309,7 +314,7 @@ input:focus {
 }
 
 option {
-	background-color: #222;
+	background-color: #111;
 	color: #fff;
 }
 
@@ -330,11 +335,9 @@ label {
 
 .checkbox__container {
 	background: linear-gradient(to bottom, #222, #0009);
-	padding: 0;
+	margin: .1rem auto;
 	border-radius: 5px;
 	box-shadow: 0 0 5px #444;
-	margin: 1rem auto;
-	line-height: 1;
 }
 
 .checkbox__label {
@@ -342,30 +345,36 @@ label {
 }
 
 .disclaimer {
-	padding: .5rem 0;
-	margin: 1rem 0;
+  width: 55%;
+  height: auto;
 	text-shadow: 2px 2px 3px #000, 0 0 2px #fff;
 	border: 2px dashed #777;
 	border-radius: 5px;
 	color: #333;
+  background: linear-gradient(to bottom, #222, #0009);
 	transition: color .5s ease-in-out;
 	animation: aparecer .4s forwards;
+  margin: 1rem auto;
+  padding: .9rem;
 }
 
 .disclaimer__container {
-	margin-top: .3rem;
-	border: 1px solid #777;
+  border: 1px solid #777;
 	border-radius: 5px;
 	animation: aparecer .4s forwards;
+  background: linear-gradient(to bottom, #222, #0009);
+  margin: 1rem auto;
 }
-    
+
 .disclaimer__text {
 	list-style: none;
-	padding: .5rem;
+	
 	text-shadow: 2px 2px 3px #000, 0 0 2px #fff;
 	border-radius: 5px;
 	animation: aparecer .4s forwards;  
 	text-align: center;
+  text-wrap: pretty;
+  font-size: 1.2rem;
 }
 
 legend { 
