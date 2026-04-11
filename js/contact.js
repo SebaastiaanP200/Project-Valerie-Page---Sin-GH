@@ -76,103 +76,50 @@ fecha.addEventListener("input", actualizarInterfazValidacion);
 checkboxes.forEach(cb => cb.addEventListener("change", actualizarInterfazValidacion));
 
 const formValidate = (e) => {
-    const valor = e.target.value;
-  const inputName = e.target.name;
+  const { name, value } = e.target;
 
-  // Si el campo está vacío, reseteamos el grupo y salimos
-  if (valor === "") {
-    const ids = {
-      "nombre": "name__group",
-      "apellido": "lastname__group",
-      "email": "email__group",
-      "teléfono": "phone__group",
-      "lugar": "placement__group"
-    };
-    const grupoId = ids[inputName];
-    if (grupoId) {
-      document.getElementById(grupoId).classList.remove("form__group-correct", "form__group-incorrect");
-      const icono = document.querySelector(`#${grupoId} i`);
-      const texto = document.querySelector(`#${grupoId} p`);
-      if (icono) icono.classList.remove("fa-circle-check", "fa-circle-xmark");
-      if (texto) texto.classList.remove("error-active");
-    }
-    return; // Aquí corta y no entra al switch
+  // 1. Mapeo de NAME del input -> ID del grupo y su EXPRESIÓN
+  // Asegúrate de que los nombres coincidan EXACTAMENTE con el atributo name="" de tu HTML
+  const config = {
+    nombre: { group: "name__group", regex: expresiones.nombre },
+    apellido: { group: "lastname__group", regex: expresiones.apellido },
+    email: { group: "email__group", regex: expresiones.correo }, // o expresiones.email
+    teléfono: { group: "phone__group", regex: expresiones.telefono },
+    lugar: { group: "placement__group", regex: expresiones.direccion }
+  };
+
+  const field = config[name];
+  if (!field) return; // Si el input no está en el mapa, ignoramos
+
+  const group = document.getElementById(field.group);
+  const icon = group.querySelector("i");
+  const text = group.querySelector("p");
+
+  // Caso: Campo Vacío (Reset)
+  if (value === "") {
+    group.classList.remove("form__group-correct", "form__group-incorrect");
+    if (icon) icon.classList.remove("fa-circle-check", "fa-circle-xmark");
+    if (text) text.classList.remove("error-active");
+    return;
   }
 
-  // Si no está vacío, sigue tu lógica original
-  switch (inputName) {
-    case "nombre":
-      if (expresiones.nombre.test(e.target.value)) {
-        document.getElementById("name__group").classList.add("form__group-correct");
-        document.getElementById("name__group").classList.remove("form__group-incorrect");
-        document.querySelector("#name__group i").classList.remove("fa-circle-xmark");
-        document.querySelector("#name__group i").classList.add("fa-circle-check");
-        document.querySelector("#name__group p").classList.remove("error-active");
-      } else {
-        document.getElementById("name__group").classList.add("form__group-incorrect");
-        document.querySelector("#name__group i").classList.add("fa-circle-xmark");
-        document.querySelector("#name__group i").classList.remove("fa-circle-check");
-        document.querySelector("#name__group p").classList.add("error-active");
-      }
-    break;
-    case "apellido": 
-    if (expresiones.apellido.test(e.target.value)) {
-        document.getElementById("lastname__group").classList.add("form__group-correct");
-        document.getElementById("lastname__group").classList.remove("form__group-incorrect");
-        document.querySelector("#lastname__group i").classList.remove("fa-circle-xmark");
-        document.querySelector("#lastname__group i").classList.add("fa-circle-check");
-        document.querySelector("#lastname__group p").classList.remove("error-active");
-      } else {
-        document.getElementById("lastname__group").classList.add("form__group-incorrect");
-        document.querySelector("#lastname__group i").classList.add("fa-circle-xmark");
-        document.querySelector("#lastname__group i").classList.remove("fa-circle-check");
-        document.querySelector("#lastname__group p").classList.add("error-active");
-      }
-    break;
-    case "email": 
-    if (expresiones.correo.test(e.target.value)) {
-        document.getElementById("email__group").classList.add("form__group-correct");
-        document.getElementById("email__group").classList.remove("form__group-incorrect");
-        document.querySelector("#email__group i").classList.remove("fa-circle-xmark");
-        document.querySelector("#email__group i").classList.add("fa-circle-check");
-        document.querySelector("#email__group p").classList.remove("error-active");
-      } else {
-        document.getElementById("email__group").classList.add("form__group-incorrect");
-        document.querySelector("#email__group i").classList.add("fa-circle-xmark");
-        document.querySelector("#email__group i").classList.remove("fa-circle-check");
-        document.querySelector("#email__group p").classList.add("error-active");
-      }
-    break;
-    case "teléfono": 
-    if (expresiones.telefono.test(e.target.value)) {
-        document.getElementById("phone__group").classList.add("form__group-correct");
-        document.getElementById("phone__group").classList.remove("form__group-incorrect");
-        document.querySelector("#phone__group i").classList.remove("fa-circle-xmark");
-        document.querySelector("#phone__group i").classList.add("fa-circle-check");
-        document.querySelector("#phone__group p").classList.remove("error-active");
-      } else {
-        document.getElementById("phone__group").classList.add("form__group-incorrect");
-        document.querySelector("#phone__group i").classList.add("fa-circle-xmark");
-        document.querySelector("#phone__group i").classList.remove("fa-circle-check");
-        document.querySelector("#phone__group p").classList.add("error-active");
-      }
-    break;
-    case "lugar": 
-    if (expresiones.direccion.test(e.target.value)) {
-        document.getElementById("placement__group").classList.add("form__group-correct");
-        document.getElementById("placement__group").classList.remove("form__group-incorrect");
-        document.querySelector("#placement__group i").classList.remove("fa-circle-xmark");
-        document.querySelector("#placement__group i").classList.add("fa-circle-check");
-        document.querySelector("#placement__group p").classList.remove("error-active");
-      } else {
-        document.getElementById("placement__group").classList.add("form__group-incorrect");
-        document.querySelector("#placement__group i").classList.add("fa-circle-xmark");
-        document.querySelector("#placement__group i").classList.remove("fa-circle-check");
-        document.querySelector("#placement__group p").classList.add("error-active");
-      }
-    break;
+  // Caso: Validación Dinámica
+  const isValid = field.regex.test(value);
+
+  // Aplicar clases de forma dinámica
+  group.classList.toggle("form__group-correct", isValid);
+  group.classList.toggle("form__group-incorrect", !isValid);
+  
+  if (icon) {
+    icon.classList.toggle("fa-circle-check", isValid);
+    icon.classList.toggle("fa-circle-xmark", !isValid);
   }
-}
+  
+  if (text) {
+    text.classList.toggle("error-active", !isValid);
+  }
+};
+
 
 inputs.forEach((input) => {
   input.addEventListener("keyup", formValidate);
