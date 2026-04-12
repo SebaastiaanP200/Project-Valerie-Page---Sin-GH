@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyAFfKGJiQqocXdOr_XJfH6x3WTe9qWi7DI",
   authDomain: "vc-web-site.firebaseapp.com",
@@ -15,10 +14,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 export const db = getFirestore(app);
-
-const firestore = getFirestore(app);
-export { firestore };
-
-const auth = getAuth(app);
-export { auth };
+export const auth = getAuth(app);  
