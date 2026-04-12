@@ -75,6 +75,14 @@ lugar.addEventListener("input", actualizarInterfazValidacion);
 fecha.addEventListener("input", actualizarInterfazValidacion);
 checkboxes.forEach(cb => cb.addEventListener("change", actualizarInterfazValidacion));
 
+const fields = {
+  nombre: false,
+  apellido: false,
+  email: false,
+  teléfono: false,
+  lugar: false,
+}
+
 const formValidate = (e) => {
   const { name, value } = e.target;
 
@@ -106,6 +114,8 @@ const formValidate = (e) => {
   // Caso: Validación Dinámica
   const isValid = field.regex.test(value);
 
+  fields[name] = isValid;
+  
   // Aplicar clases de forma dinámica
   group.classList.toggle("form__group-correct", isValid);
   group.classList.toggle("form__group-incorrect", !isValid);
@@ -118,8 +128,7 @@ const formValidate = (e) => {
   if (text) {
     text.classList.toggle("error-active", !isValid);
   }
-};
-
+};  
 
 inputs.forEach((input) => {
   input.addEventListener("keyup", formValidate);
@@ -128,24 +137,21 @@ inputs.forEach((input) => {
 
 formC.addEventListener("submit", (e) => {
   e.preventDefault();
-  
-  const nombre = document.getElementById("nombre").value.trim();
-  const apellido = document.getElementById("apellido").value.trim();
-  
-  try {
-    // Validaciones lógicas
-    if (!expresiones.nombre.test(nombre) || !expresiones.nombre.test(apellido)) {
-      throw "Nombre o apellido inválido (mínimo 2 caracteres).";
-    }
-    if (!hayCheckboxesMarcados()) {
-      throw "Debe seleccionar al menos un servicio.";
-    }
-    if (!tipoEvento.value || !lugar.value || !fecha.value) {
-      throw "Complete todos los campos del evento.";
-    }
 
+  // Verificamos si todos los campos en el objeto 'fields' son true
+  const formValido = Object.values(fields).every(valor => valor === true);
+
+  try {
+    if (!formValido) {
+      throw "Por favor, completa los campos correctamente (marcados en rojo).";
+    } else if (!hayCheckboxesMarcados()) {
+      throw "Debe seleccionar al menos un servicio.";
+    } else if (!fecha.value) {
+      throw "Debe seleccionar una fecha antes de enviar.";
+    }
+    // Si todo está bien
     alert("¡Formulario enviado con éxito!");
-    formC.submit(); 
+    // formC.submit(); // Cuidado: esto puede causar bucle si no usas un método de envío AJAX/Fetch
   } catch (error) {
     alert(error);
   }
