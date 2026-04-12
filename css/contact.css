@@ -319,6 +319,7 @@ input:focus {
   color: #bb2929;
   border-bottom: 3px solid #bb2929;
 }
+
 .form__group-incorrect .--validastate {
   color: #bb2929;
   opacity: 1;
