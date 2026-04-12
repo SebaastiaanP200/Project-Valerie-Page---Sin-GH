@@ -137,23 +137,30 @@ inputs.forEach((input) => {
 
 formC.addEventListener("submit", (e) => {
   e.preventDefault();
-
   // Verificamos si todos los campos en el objeto 'fields' son true
   const formValido = Object.values(fields).every(valor => valor === true);
+  const term = document.getElementById("term");
 
   try {
     if (!formValido) {
-      throw "Por favor, completa los campos correctamente (marcados en rojo).";
+      throw "Por favor, completa los campos. O corrige los que están (marcados en rojo).";
     } else if (!hayCheckboxesMarcados()) {
       throw "Debe seleccionar al menos un servicio.";
+    } else if (!lugar.value) {
+      throw "Debe indicar un lugar antes de enviar.";
     } else if (!fecha.value) {
       throw "Debe seleccionar una fecha antes de enviar.";
-    }
-    // Si todo está bien
-    alert("¡Formulario enviado con éxito!");
-    // formC.submit(); // Cuidado: esto puede causar bucle si no usas un método de envío AJAX/Fetch
+    } else if (!term.checked) {
+      throw "Debe marcar los términos y condiciones antes de enviar.";
+    } else {
+      document.getElementById("form__msg-e").classList.add("form__msg-e-active");
+    } 
+    formC.submit(); // Cuidado: esto puede causar bucle si no usas un método de envío AJAX/Fetch
   } catch (error) {
-    alert(error);
+      document.getElementById("form__msg").classList.add("form__msg-active");
+    setTimeout(() => {
+      document.getElementById("form__msg").classList.remove("form__msg-active");
+    }, 2000);
   }
 });
 
