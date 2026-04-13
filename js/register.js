@@ -1,7 +1,4 @@
-// IMPORTANTE: Asegúrate de que en auth.js y firestore.js uses "export"
 import { auth, db } from "./firebase/firebase.js"
-// El resto de tu lógica de registro va aquí abajo...
-
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const btn = document.getElementById('register__btn');
@@ -14,6 +11,7 @@ btn.addEventListener('click', async (e) => {
   
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    alert("¡Registrado!", userCredential.user);
     console.log("¡Registrado!", userCredential.user);
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {

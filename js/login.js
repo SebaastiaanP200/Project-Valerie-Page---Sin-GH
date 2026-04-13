@@ -1,3 +1,30 @@
+import { auth, db } from "./firebase/firebase.js"
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const btn = document.getElementById('login__btn');
+
+btn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    alert("¡Login Exitoso!", userCredential.user);
+  } catch (error) {
+		if (error.code === 'auth/invalid-credential') {
+      alert("Correo o contraseña incorrectos. Intenta nuevamente.");
+		} else {
+		console.error("Error desconocido:", error.code);
+		alert("Ocurrió un error: " + error.message);
+  	}
+	}
+});
+
+
+
+
 // // LOGIN / LOGOUT
 
 // import { login, logout } from "./firebase/auth.js";

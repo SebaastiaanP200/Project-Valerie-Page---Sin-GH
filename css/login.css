@@ -5,7 +5,7 @@
 }
 
 body {
-  background: url("login.png");
+  /* background: url("login.png"); */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -39,7 +39,7 @@ input {
   padding: 1rem;
   margin-bottom: .5rem;
   border: none;
-  border-radius: 5x;
+  border-radius: 5px;
 }
 
 a {
@@ -64,5 +64,5 @@ a {
   border-radius: 5px;
   width: 50%;
   background-color: wheat;
-  margin: auto;
+  margin: .5rem auto;
 }

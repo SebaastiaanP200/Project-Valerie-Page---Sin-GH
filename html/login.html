@@ -4,34 +4,31 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="login.css" />
+	<link rel="stylesheet" href="/css/login.css" />
 	<title>Login</title>
 </head>
-
 <body>
-	<dialog class="login">
-		<form action="" method="" class="login__form">
+		<form class="login__form">
 			<h1>Iniciar Sesión</h1>
 			<label class="login__email">Correo electrónico</label>
-			<input class="login__iEmail" type="text" placeholder="Email" />
+			<input id="email" class="login__iEmail" type="text" placeholder="Email" />
 			<label class="login__password">Contraseña</label>
-			<input class="login__iPassword" type="password" placeholder="Password" minlength="6" />
+			<input id="password" class="login__iPassword" type="password" placeholder="Password" minlength="6" />
 			<span class="login__fPassword">¿Olvidaste tu contraseña?
-				<a class="login__fPassword --a" href="forgot_password.html">Recuperar</a></span>
-			<button class="login__btn" type="submit">Iniciar sesión</button>
+				<a class="login__fPassword --a" href="/html/forgot_password.html">Recuperar</a></span>
+			<button id="login__btn" class="login__btn" type="submit">Iniciar sesión</button>
 			<span class="login__rAccount">¿No tienes cuenta?
-				<a class="login__rAccount --a" href="register.html">Regístrate</a></span>
+				<a class="login__rAccount --a" href="/html/register.html">Regístrate</a></span>
 		</form>
-	</dialog>
 
 	<!--<div class="app">
-        <button id="buttonLogin">Iniciar Sesión</button>
-        <button id="buttonLogout" class="hidden" >Cerrar Sesión</button>-->
+<button id="buttonLogin">Iniciar Sesión</button>
+<button id="buttonLogout" class="hidden" >Cerrar Sesión</button>-->
 	<!--<input id="app__input" type="text">
-        <div id="user__info" class="user__info"></div>
-        <div id="todo__container" class="user__info"></div> -->
+<div id="user__info" class="user__info"></div>
+<div id="todo__container" class="user__info"></div> -->
 
-
+	<script type="module" src="/js/login.js"></script>
 </body>
 
 </html>
