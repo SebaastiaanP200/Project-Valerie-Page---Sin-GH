@@ -12,14 +12,19 @@ btn.addEventListener('click', async (e) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     alert("¡Login Exitoso!", userCredential.user);
+    window.location.href = "./dashboard.html";
   } catch (error) {
-		if (error.code === 'auth/invalid-credential') {
-      alert("Correo o contraseña incorrectos. Intenta nuevamente.");
-		} else {
-		console.error("Error desconocido:", error.code);
-		alert("Ocurrió un error: " + error.message);
-  	}
-	}
+    if (error.code === 'auth/invalid-credential') {
+      alert("Correo o contraseña incorrectos. Intente nuevamente o regístrese.");
+    } else if (error.code === 'auth/email-already-in-use') {
+      alert("Correo existente, utilice otro e intente nuevamente.");
+    } else if (error.code === 'auth/user-not-found') {
+      alert("Correo no registrado, regístrese por favor.");
+    } else {  
+      console.error("Error desconocido:", error.code);
+      alert("Ocurrió un error: " + error.message);
+    }
+  }
 });
 
 

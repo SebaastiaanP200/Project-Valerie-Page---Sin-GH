@@ -9,10 +9,11 @@ btn.addEventListener('click', async (e) => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   
+  
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     alert("¡Registrado!", userCredential.user);
-    console.log("¡Registrado!", userCredential.user);
+    window.location.href = "./login.html";
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
       alert("Este correo ya está registrado. Intenta iniciar sesión.");
