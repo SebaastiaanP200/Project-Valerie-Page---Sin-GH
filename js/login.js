@@ -1,6 +1,20 @@
 import { auth, db } from "./firebase/firebase.js"
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+const observer = () => {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      
+    const uid = user.uid;
+
+    } else {
+    
+    }
+  });
+}
+
+//LOGIN 
 const btn = document.getElementById('login__btn');
 
 btn.addEventListener('click', async (e) => {
