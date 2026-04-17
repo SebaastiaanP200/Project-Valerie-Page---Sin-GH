@@ -1,6 +1,16 @@
 import { firestore } from "./firebase.js";
 import { collection, addDoc, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
+
+
+
+
+
+
+
+
+
 // export async function insert(item) {
 //   try {
 //     const response = await addDoc(collection(firestore, "usuarios"), item);
