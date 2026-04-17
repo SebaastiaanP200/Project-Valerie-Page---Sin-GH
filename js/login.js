@@ -1,18 +1,5 @@
 import { auth, db } from "./firebase/firebase.js"
-import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const observer = () => {
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      
-    const uid = user.uid;
-
-    } else {
-    
-    }
-  });
-}
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 //LOGIN 
 const btn = document.getElementById('login__btn');
@@ -40,6 +27,31 @@ btn.addEventListener('click', async (e) => {
     }
   }
 });
+
+export function observer() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("existe");
+      const displayName = user.displayName;
+      const email = user.email;
+      const emailVerified = user.emailVerified;
+      const photoURL = user.photoURL;
+      const isAnonymous = user.isAnonymous;
+      const uid = user.uid;
+      const providerData = user.providerData;
+    } else {
+      console.log("no existe");
+    }
+  });
+}
+
+observer();
+
+
+export async function logout() {
+  await signOut(auth);
+};
 
 
 
