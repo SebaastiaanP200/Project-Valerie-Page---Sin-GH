@@ -29,9 +29,6 @@ body {
   font-family: "Montserrat";
   min-height: 100vh;
   scroll-behavior: smoot;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
   background-color: #333;
   color: white;
   font-family: "Montserrat";
