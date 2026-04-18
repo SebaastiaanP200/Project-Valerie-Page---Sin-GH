@@ -1,7 +1,10 @@
+import { db } from "./firebase/firebase.js";
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 // 1. SELECTORES (Agrupados por contexto)
 const formC = document.getElementById("form__c");
 const inputs = document.querySelectorAll('#form__c input');
-const tipoEvento = document.getElementById("form__input type-event");
+const tipoEvento = document.getElementById("tipoEvento");
 const lugar = document.getElementById("lugar");
 const fecha = document.getElementById("fecha");
 const checkboxes = document.querySelectorAll('input[name="servicios[]"]');
@@ -58,7 +61,12 @@ const actualizarInterfazValidacion = () => {
   disclaimerTitulo.style.color = formValido ? "#fff" : "#444";
 };
 
+const resetCheckboxes = () => {
+  checkboxes.forEach(cb => cb.checked = false);
+};
+
 const gestionarVisibilidadServicios = () => {
+  resetCheckboxes();
   const valor = tipoEvento.value;
   // Ocultar todos primero
   Object.values(seccionesServicios).forEach(el => el.style.display = "none");
@@ -71,7 +79,19 @@ const gestionarVisibilidadServicios = () => {
 
 // 5. EVENT LISTENERS
 tipoEvento.addEventListener("change", gestionarVisibilidadServicios);
+lugar.addEventListener("input", () => {
+  lugar.value = lugar.value.toLowerCase().split(" ").filter(palabra => palabra !== "")
+  .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(" ");
+  actualizarInterfazValidacion();
+});
 lugar.addEventListener("input", actualizarInterfazValidacion);
+
+const dateContainer = fecha.closest(".form__input");
+
+dateContainer.addEventListener("click", () => {
+  if (fecha.showPicker) { fecha.showPicker(); } else { fecha.focus(); }
+});
+
 fecha.addEventListener("input", actualizarInterfazValidacion);
 checkboxes.forEach(cb => cb.addEventListener("change", actualizarInterfazValidacion));
 
@@ -79,31 +99,28 @@ const fields = {
   nombre: false,
   apellido: false,
   email: false,
-  teléfono: false,
+  telefono: false,
   lugar: false,
 }
 
 const formValidate = (e) => {
   const { name, value } = e.target;
 
-  // 1. Mapeo de NAME del input -> ID del grupo y su EXPRESIÓN
-  // Asegúrate de que los nombres coincidan EXACTAMENTE con el atributo name="" de tu HTML
   const config = {
     nombre: { group: "name__group", regex: expresiones.nombre },
     apellido: { group: "lastname__group", regex: expresiones.apellido },
-    email: { group: "email__group", regex: expresiones.correo }, // o expresiones.email
-    teléfono: { group: "phone__group", regex: expresiones.telefono },
+    email: { group: "email__group", regex: expresiones.correo },
+    telefono: { group: "phone__group", regex: expresiones.telefono },
     lugar: { group: "placement__group", regex: expresiones.direccion }
   };
 
   const field = config[name];
-  if (!field) return; // Si el input no está en el mapa, ignoramos
+  if (!field) return;
 
   const group = document.getElementById(field.group);
   const icon = group.querySelector("i");
   const text = group.querySelector("p");
 
-  // Caso: Campo Vacío (Reset)
   if (value === "") {
     group.classList.remove("form__group-correct", "form__group-incorrect");
     if (icon) icon.classList.remove("fa-circle-check", "fa-circle-xmark");
@@ -111,12 +128,10 @@ const formValidate = (e) => {
     return;
   }
 
-  // Caso: Validación Dinámica
   const isValid = field.regex.test(value);
 
   fields[name] = isValid;
-  
-  // Aplicar clases de forma dinámica
+
   group.classList.toggle("form__group-correct", isValid);
   group.classList.toggle("form__group-incorrect", !isValid);
   
@@ -135,29 +150,39 @@ inputs.forEach((input) => {
   input.addEventListener("blur", formValidate);
 });
 
-formC.addEventListener("submit", (e) => {
+formC.addEventListener("submit", async (e) => {
   e.preventDefault();
-  // Verificamos si todos los campos en el objeto 'fields' son true
+ 
   const formValido = Object.values(fields).every(valor => valor === true);
   const term = document.getElementById("term");
 
   try {
-    if (!formValido) {
-      throw "Por favor, completa los campos. O corrige los que están (marcados en rojo).";
-    } else if (!hayCheckboxesMarcados()) {
-      throw "Debe seleccionar al menos un servicio.";
-    } else if (!lugar.value) {
-      throw "Debe indicar un lugar antes de enviar.";
-    } else if (!fecha.value) {
-      throw "Debe seleccionar una fecha antes de enviar.";
-    } else if (!term.checked) {
-      throw "Debe marcar los términos y condiciones antes de enviar.";
-    } else {
-      document.getElementById("form__msg-e").classList.add("form__msg-e-active");
-    } 
-    formC.submit(); // Cuidado: esto puede causar bucle si no usas un método de envío AJAX/Fetch
+    if (!formValido) throw "Por favor, completa los campos. O corrige los que están (marcados en rojo).";
+    if (!hayCheckboxesMarcados()) throw "Debe seleccionar al menos un servicio.";
+    if (!lugar.value) throw "Debe indicar un lugar antes de enviar.";
+    if (!fecha.value) throw "Debe seleccionar una fecha antes de enviar.";
+    if (!term.checked) throw "Debe marcar los términos y condiciones antes de enviar.";
+    
+    const serviciosSeleccionados = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+    const docRef = await addDoc(collection(db, "users"), {
+      name: formC.nombre.value,
+      lastname: formC.apellido.value,
+      email: formC.email.value,
+      phone_number: formC.telefono.value,
+      placement: lugar.value,
+      services: serviciosSeleccionados,
+      date: fecha.value,
+      term: term.checked === true,
+      creado: serverTimestamp()
+    });
+    console.log("Document written with ID: ", docRef.id);
+
+    document.getElementById("form__msg-e").classList.add("form__msg-e-active");
+
+    formC.submit();
   } catch (error) {
-      document.getElementById("form__msg").classList.add("form__msg-active");
+    console.error("Error adding document: ", error);
+    document.getElementById("form__msg").classList.add("form__msg-active");
     setTimeout(() => {
       document.getElementById("form__msg").classList.remove("form__msg-active");
     }, 2000);

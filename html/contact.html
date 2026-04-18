@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link type="image/png" rel="icon" href="/assets/favicon/Logo/logo.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<link rel="stylesheet" href="/css/fonts.css">
 	<link rel="stylesheet" href="/css/contact.css">
 	<title>VC-Photograph</title>
@@ -80,7 +81,7 @@
 				<div class="form__group" id="phone__group">
 					<label for="telefono" class="form__label --phone">Teléfono</label>
 					<div class="form__input">
-						<input type="tel" name="teléfono" placeholder="+54 9 3212 548321" id="telefono" maxlength="14" required
+						<input type="tel" name="telefono" placeholder="+54 9 3212 548321" id="telefono" maxlength="14" required
 							aria-required="true">
 						<i class="form__i --validastate fa-regular fa-circle-xmark"></i>
 					</div>
@@ -98,7 +99,7 @@
 
 				<div class="form__input">
 					<label for="type-event" class="form__label --event-type">Tipo de evento</label>
-					<select id="form__input type-event" name="tipoEvento" class="event" aria-required="true">
+					<select id="tipoEvento" name="tipoEvento" class="event" aria-required="true">
 						<option value="">-</option>
 						<option value="niños">Sesión para niños</option>
 						<option value="15">Fiesta de 15 años</option>
@@ -241,9 +242,9 @@
 		</p>
 	</footer>
 
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script src="https://kit.fontawesome.com/314d450419.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-	<script src="/js/contact.js"></script>
-
+	<script type="module" src="/js/contact.js"></script>
 </body>
 </html>
