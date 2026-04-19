@@ -267,6 +267,11 @@ input:focus {
   cursor: pointer;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
 .--form-group{
   display: flex;
   flex-direction: column;
