@@ -43,99 +43,18 @@ p {
   font-size: clamp(1rem, 1.2vw, 1.125rem);
 }
 
-/* HEADER */
-
-.header {
-  background-color: var(--nav-color);
-  display: flex;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  align-items: center;
-  height: 11vh;
-  width: 100%;
-  animation: header-movement forwards;
-  animation-timeline: scroll();
-  animation-range: 1% 10%;
-}
-
-.header__logo-container {
-  display: block;
-  position: relative;
-  z-index: 10;
-  max-width: 1200px;
-  width: clamp(9%, 90%, 10vh);
-  margin: auto 0;
-  filter: contrast(1.5);
-}
-
-.header__logo-img {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  padding: 0;
-  max-width: 1200px;
-  width: clamp(7%, 50%, 10vh);
-  border-radius: 50%;
-  border: 3px solid #111;
-  filter: drop-shadow(0 0 4px #111) contrast() invert();
-}
-
-.header__nav {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.header__nav-list {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-  height: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.header__nav-item {
-  list-style: none;
-}
-
-.header__nav-item:hover {
-  outline: 2px solid #fff;
-  border-radius: 5px;
-  filter: drop-shadow(0 0 4px #000);
-}
-
-.link>span {
-  display: flex;
-  font-size: 2.5rem;
-  filter: drop-shadow(0 0 1px #222);
-}
-
-.link {
-  display: flex;
-  gap: .5rem;
-  text-decoration: none;
-  color: var(--text-color);
-  font-size: 2rem;
-  filter: drop-shadow(0 0 5px #aaa);
-}
-
 h1 {
   margin-top: .5rem;
   text-align: center;
   color: wheat;
+  font-size: 2rem;
 }
 
-
 .login__form {
-  box-shadow: 0 0 2px #fff;
+  box-shadow: 0 0 10px #fff;
   background: linear-gradient(#000a, #0009);
   justify-content: center;
-  width: 60%;
+  width: 40%;
   max-width: 1200px;
   padding: 2rem 3rem;
   display: flex;
@@ -145,11 +64,17 @@ h1 {
   border-radius: 10px;
 }
 
-input {
+label {
+  display: block;
+	font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+input, .login__btn {
 	width: 100%;
   height: 3.5rem;
-  line-height: 3.5rem;
-	padding: 1rem;
+  padding: 1rem;
   outline: none;
 	border: none;
 	border-bottom: 3px solid #fff;
@@ -158,6 +83,7 @@ input {
 	background-color: #111;
 	color: var(--text-color);
   transition: all .3s ease-in;
+  cursor: pointer;
 }
 
 input::placeholder {
@@ -177,7 +103,7 @@ a {
 
 .login__rAccount {
   text-align: center;
-  margin: .5rem 0;
+  margin: 0;
 }
 
 .login__fPassword{
@@ -186,10 +112,15 @@ a {
 }
 
 .login__btn {
-  padding: 1rem;
-  border: none;
-  border-radius: 5px;
   width: 50%;
-  background-color: wheat;
-  margin: .5rem auto;
+  margin: 1rem auto;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 0;
+  transition: all .1s ease;
+  cursor: pointer;
+}
+
+.login__btn:hover {
+  box-shadow: 3px 3px 3px #555;
 }
