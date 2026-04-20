@@ -164,7 +164,7 @@ formC.addEventListener("submit", async (e) => {
     if (!term.checked) throw "Debe marcar los términos y condiciones antes de enviar.";
     
     const serviciosSeleccionados = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
-    const docRef = await addDoc(collection(db, "users"), {
+    const docRef = await addDoc(collection(db, "contact"), {
       name: formC.nombre.value,
       lastname: formC.apellido.value,
       email: formC.email.value,

@@ -5,7 +5,6 @@ const btn__logout = document.getElementById("logout");
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    logout();
     window.location.href = "./login.html";
   }
 });

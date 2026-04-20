@@ -12,10 +12,16 @@
 <body>
 		<form class="login__form">
 			<h1>Iniciar Sesión</h1>
-			<label class="login__email">Correo electrónico</label>
-			<input id="email" class="login__iEmail" type="text" placeholder="Email" />
+			<label class="login__email">Email</label>
+			<div class="email__container">
+				<input id="email" class="login__iEmail" type="text" placeholder="Email" />
+				<span id="email" class="email material-symbols-outlined">email</span>
+			</div>
 			<label class="login__password">Contraseña</label>
-			<input id="password" class="login__iPassword" type="password" placeholder="Password" minlength="6" />
+				<div class="pass__container">
+				<input id="password" class="login__iPassword" type="password" placeholder="Password" minlength="6" />
+			<span id="togglePass" class="toggle material-symbols-outlined">visibility</span>
+			</div>
 			<span class="login__fPassword">¿Olvidaste tu contraseña?
 				<a class="login__fPassword --a" href="/html/forgot_password.html">Recuperar</a></span>
 			<button id="login__btn" class="login__btn" type="submit">Iniciar sesión</button>

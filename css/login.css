@@ -50,6 +50,8 @@ h1 {
   font-size: 2rem;
 }
 
+
+
 .login__form {
   box-shadow: 0 0 10px #fff;
   background: linear-gradient(#000a, #0009);
@@ -93,6 +95,34 @@ input::placeholder {
 input:focus {
  	border-bottom: 3px solid #0075ff;
   box-shadow: 3px 0 10px rgba(0, 0, 0, .4);
+}
+
+.email__container {
+  position: relative;
+}
+
+.email{
+  position: absolute;
+  right: .7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+
+.pass__container {
+  position: relative;
+}
+
+.toggle{
+  position: absolute;
+  right: .7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
 }
 
 a {

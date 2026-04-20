@@ -12,7 +12,14 @@ btn.addEventListener('click', async (e) => {
   
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    if (!auth.currentUser.emailVerified) {
+      alert("Debes verificar tu correo antes de entrar.");
+      await auth.signOut();
+      return;
+    }
+    
     alert("¡Login Exitoso!", userCredential.user);
+
     window.location.href = "./dashboard.html";
   } catch (error) {
     if (error.code === 'auth/invalid-credential') {

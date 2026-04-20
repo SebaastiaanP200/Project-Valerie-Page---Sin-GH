@@ -1,17 +1,37 @@
 import { auth, db } from "./firebase/firebase.js"
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const btn = document.getElementById('register__btn');
 
 btn.addEventListener('click', async (e) => {
   e.preventDefault();
-  
-  const email = document.getElementById("email").value;
+
+  const user = document.getElementById("user").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
+  const cpassword = document.getElementById("cpassword").value;
   
   try {
+    if (password !== cpassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    
+    await setDoc(doc(db, "user", userCredential.user.uid), {
+      user: user,
+      email: email,
+      rol: "user",
+      creado: serverTimestamp()
+    });
+    
     alert("¡Registrado!", userCredential.user);
+    
+    await sendEmailVerification(userCredential.user);
+    alert("Revisa tu email");
+       
     window.location.href = "./login.html";
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
@@ -24,3 +44,5 @@ btn.addEventListener('click', async (e) => {
     }
   }
 });
+  
+
