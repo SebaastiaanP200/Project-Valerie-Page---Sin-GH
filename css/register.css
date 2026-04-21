@@ -95,6 +95,48 @@ input:focus {
   box-shadow: 3px 0 10px rgba(0, 0, 0, .4);
 }
 
+.user__container {
+  position: relative;
+}
+
+.user{
+  position: absolute;
+  right: .7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+
+.email__container {
+  position: relative;
+}
+
+.email{
+  position: absolute;
+  right: .7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+
+.pass__container {
+  position: relative;
+}
+
+.toggle{
+  position: absolute;
+  right: .7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+}
+
 .register__btn {
   width: 50%;
   margin: 1rem auto;

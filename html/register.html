@@ -12,13 +12,25 @@
 	<form class="register__form">
 		<h1>Registro</h1>
 		<label class="register__user">Usuario</label>
-		<input id="user" class="register__iUser" type="text" placeholder="Usuario" />
+		<div class="user__container">
+			<input id="user" class="register__iUser" type="text" placeholder="Usuario" />
+			<span id="user" class="user material-symbols-outlined">person</span>
+		</div>
 		<label class="register__email">Email</label>
-		<input id="email" class="register__iEmail" type="email" placeholder="Email" />
+		<div class="email__container">
+			<input id="email" class="register__iEmail" type="email" placeholder="Email" />
+			<span id="email" class="email material-symbols-outlined">email</span>
+		</div>
 		<label class="register__password">Contraseña</label>
-		<input id="password" class="register__iPassword" type="password" placeholder="Contraseña" />
+		<div class="pass__container">
+			<input id="password" class="register__iPassword" type="password" placeholder="Contraseña" minlength="6" />
+			<span id="togglePass" class="toggle material-symbols-outlined">visibility</span>
+		</div>
 		<label class="register__cPassword">Confirmar contraseña</label>
-		<input id="cpassword" class="register__iCpassword" type="password" placeholder="Confirmar contraseña" />
+		<div class="pass__container">
+			<input id="cpassword" class="register__iCpassword" type="password" placeholder="Confirmar contraseña" minlength="6" />
+			<span id="togglePass" class="toggle material-symbols-outlined">visibility</span>
+		</div>
 		<button id="register__btn" class="register__btn" type="submit">Regístrate</button>
 		<span class="register__account">¿Ya tienes cuenta?
 			<a class="register__account --a" href="/html/login.html">Iniciar Sesión</></span>
