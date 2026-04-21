@@ -162,7 +162,7 @@ formC.addEventListener("submit", async (e) => {
     if (!lugar.value) throw "Debe indicar un lugar antes de enviar.";
     if (!fecha.value) throw "Debe seleccionar una fecha antes de enviar.";
     if (!term.checked) throw "Debe marcar los términos y condiciones antes de enviar.";
-    
+  
     const serviciosSeleccionados = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
     const docRef = await addDoc(collection(db, "contact"), {
       name: formC.nombre.value,
@@ -175,17 +175,16 @@ formC.addEventListener("submit", async (e) => {
       term: term.checked === true,
       creado: serverTimestamp()
     });
-    console.log("Document written with ID: ", docRef.id);
 
     document.getElementById("form__msg-e").classList.add("form__msg-e-active");
 
     formC.submit();
   } catch (error) {
-    console.error("Error adding document: ", error);
     document.getElementById("form__msg").classList.add("form__msg-active");
     setTimeout(() => {
       document.getElementById("form__msg").classList.remove("form__msg-active");
-    }, 2000);
+    }, 4000);
+    alert(error);
   }
 });
 
