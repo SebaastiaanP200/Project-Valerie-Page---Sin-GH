@@ -35,46 +35,44 @@
     </div>
   </header>
 
-  <div id="sidebar" class="sidebar">
-    <nav class="sidebar__nav">
-      <ul class="sidebar__list">
-        <li class="sidebar__item">
-          <a class="sidebar__link --search" href="#">
-            <span class="material-symbols-outlined sidebar__span">search</span>
-            Search
-          </a>
-        </li>
-        <li>
-          <a class="sidebar__link --selected" href="#">
-            <span class="material-symbols-outlined sidebar__span">home</span>
-            Home
-          </a>
-        </li>
-        <li>
-          <a class="sidebar__link" href="#">
-            <span class="material-symbols-outlined sidebar__span">photo_library</span>
-            Gallery
-          </a>
-        </li>
-        <li>
-          <a class="sidebar__link" href="#">
-            <span class="material-symbols-outlined sidebar__span">calendar_month</span>
-            Calendar
-          </a>
-        </li>
-        <li>
-          <a class="sidebar__link" href="#">
-            <span class="material-symbols-outlined sidebar__span">settings</span>
-            Settings
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+    <div id="sidebar" class="sidebar">
+      <nav class="sidebar__nav">
+        <ul class="sidebar__list">
+          <li class="sidebar__item">
+            <a class="sidebar__link --search" href="#">
+              <span class="material-symbols-outlined sidebar__span">search</span>
+              Search
+            </a>
+          </li>
+          <li>
+            <a class="sidebar__link --selected" href="#" data-view="home">
+              <span class="material-symbols-outlined sidebar__span">home</span>
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="sidebar__link" href="#" data-view="gallery">
+              <span class="material-symbols-outlined sidebar__span">photo_library</span>
+              Gallery
+            </a>
+          </li>
+          <li>
+            <a class="sidebar__link" href="#" data-view="calendar">
+              <span class="material-symbols-outlined sidebar__span">calendar_month</span>
+              Calendar
+            </a>
+          </li>
+          <li>
+            <a class="sidebar__link" href="#" data-view="settings">
+              <span class="material-symbols-outlined sidebar__span">settings</span>
+              Settings
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
-
-
-
+  <main id="app"></main>
 
   <div class="btn_container">
     <button class="btn__logout" id="logout">Cerrar sesión</button>

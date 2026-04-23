@@ -83,13 +83,15 @@ p {
 .header__span-menu {
   margin: auto;
   font-size: 1.65rem;
-  border-radius: .25rem;
+  border-radius: .5rem;
   transition: all .3s ease;
+  transform: rotate(0deg) translate(0);
 }
 
 .header__span-menu:hover {
   background-color: #ddd;
   color: #000;
+  transform: rotate(-10deg) translate(-10%, 10%);
 }
 
 .header__brand-container {
@@ -159,13 +161,15 @@ p {
   width: 5rem;
   height: 100%;
   position: fixed;
-  top: 4rem;
+  top: 4.5rem;
   left: 0;
   z-index: 100;
   padding: 1rem .5rem;
+  margin-top: 1rem;
   overflow-y: auto;
   background-color: var(--nav-color);
   border-right: 2px solid #333;
+  transition: all .2s ease;
 }
 
 .sidebar__menu-toggle {
@@ -186,7 +190,7 @@ p {
   color: #fff;
   align-items: center;
   gap: 1.4rem;
-  padding: .75rem;
+  padding: .70rem;
   margin: 1rem .5rem;
   border-radius: .5rem;
   white-space: nowrap;
@@ -206,7 +210,7 @@ p {
 }
 
 .--selected {
-  background-color: #777;
+  background-color: #aaa;
   color: #000;
 }
 
