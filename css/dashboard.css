@@ -52,8 +52,8 @@ p {
   left: 0;
   z-index: 200;
   justify-content: space-between;
-  border-bottom: 2px solid #222;
-  padding: .45rem 2rem;
+  border-bottom: 2px solid #333;
+  padding: .45rem 1.65rem;
   animation: header-movement forwards;
   animation-timeline: scroll();
   animation-range: 1% 10%;
@@ -63,7 +63,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.75rem;
 }
 
 .header__menu-container {
@@ -96,7 +96,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: .5rem;
 }
 
 .header__brand-logo {
@@ -156,34 +156,38 @@ p {
 /* SIDEBAR */
 
 .sidebar {
-  border: 2px solid red;
-  margin-top: 6.1rem;
-  width: 18.75rem;
+  width: 5rem;
   height: 100%;
   position: fixed;
-  top: 0;
+  top: 4rem;
   left: 0;
   z-index: 100;
-  padding: 1.1rem 0;
+  padding: 1rem .5rem;
   overflow-y: auto;
   background-color: var(--nav-color);
-  border-right: 2px solid #222;
+  border-right: 2px solid #333;
 }
 
+.sidebar__menu-toggle {
+  width: 14rem;
+}
+
+.sidebar__list {
+  list-style: none;
+}
 
 .sidebar__span {
   width: 1.5rem;
 }
 
 .sidebar__link {
-  border: 2px solid rebeccapurple;
   display: flex;
   text-decoration: none;
   color: #fff;
   align-items: center;
-  gap: 1.3rem;
-  padding: .9rem .7rem;
-  margin: 0 .5rem;
+  gap: 1.4rem;
+  padding: .75rem;
+  margin: 1rem .5rem;
   border-radius: .5rem;
   white-space: nowrap;
   overflow: hidden;
@@ -193,6 +197,12 @@ p {
 .sidebar__link:hover {
   background-color: #ddd;
   color: #000;
+}
+
+.--search {
+  padding: .7rem;
+  border-bottom: 2px solid #333;
+  margin-bottom: .2rem;
 }
 
 .--selected {
