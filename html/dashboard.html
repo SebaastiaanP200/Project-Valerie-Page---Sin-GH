@@ -9,9 +9,77 @@
   <title>Dashboard</title>
 </head>
 <body>
-  <div>
-    <button id="logout">Cerrar sesión</button>
+  <header class="header">
+    <div class="header__left">
+      <div class="header__menu-container">
+        <div class="header__menu">
+          <span class="material-symbols-outlined header__span-menu">menu</span>
+        </div>
+      </div>
+      <div class="header__brand-container">
+        <img class="header__brand-logo" src="https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1775004204/logo_oqaxn7.jpg" alt="Logo">
+        <span class="header__brand-name">Photography</span>
+      </div>
+    </div>
+    <div class="header__right">
+      <a class="header__link" href="#">
+        <span class="material-symbols-outlined header__span">account_circle</span>
+      </a>
+      <a class="header__link" href="#">
+        <span class="material-symbols-outlined header__span">notifications</span>
+      </a>
+      <a class="header__link" href="#">
+        <span class="material-symbols-outlined header__span">task</span>
+      </a>
+      <img class="user__logo" src="/assets/img/logo.png" alt="">
+    </div>
+  </header>
+
+  <div class="sidebar">
+    <nav class="sidebar__nav">
+      <ul class="sidebar__list">
+        <li class="sidebar__item">
+          <a class="sidebar__link --search" href="#">
+            <span class="material-symbols-outlined sidebar__span">search</span>
+            Search
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link --selected" href="#">
+            <span class="material-symbols-outlined sidebar__span">home</span>
+            Home
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#">
+            <span class="material-symbols-outlined sidebar__span">photo_library</span>
+            Gallery
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#">
+            <span class="material-symbols-outlined sidebar__span">calendar_month</span>
+            Calendar
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#">
+            <span class="material-symbols-outlined sidebar__span">settings</span>
+            Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
+
+
+
+
+
+  <div class="btn_container">
+    <button class="btn__logout" id="logout">Cerrar sesión</button>
+  </div>
+
   <script type="module" src="/js/dashboard.js"></script>
 </body>
 </html>
