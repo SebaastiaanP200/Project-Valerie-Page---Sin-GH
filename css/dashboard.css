@@ -214,6 +214,17 @@ p {
   color: #000;
 }
 
+main {
+  margin-top: 10vh;
+  margin-left: 6rem;
+  padding: 1rem;
+  transition: margin-left .2s ease;
+}
+
+body.sidebar-open main {
+  margin-left: 15rem;
+}
+
 .btn__container {
   display: flex;
   position: relative;
