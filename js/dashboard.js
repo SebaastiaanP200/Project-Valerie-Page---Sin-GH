@@ -1,5 +1,6 @@
-import { auth } from "./firebase/firebase.js";
+import { db, auth } from "./firebase/firebase.js";
 import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import { initHome } from "./routes/home.js";
 import { initGallery } from "./routes/gallery.js";
@@ -8,9 +9,23 @@ import { initSettings } from "./routes/settings.js";
 
 const btn__logout = document.getElementById("logout");
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "./login.html";
+    return;
+  }
+  
+  const userIcon = document.getElementById("user-icon");
+  
+  const snap = await getDoc(doc(db, "user", user.uid));
+
+  if (snap.exists()) {
+    const data = snap.data();
+    
+    userIcon.textContent = data.avatarInitial;
+    userIcon.style.backgroundColor = data.avatarColorBg;
+  } else {
+    userIcon.textContent = "VC";
   }
 });
 

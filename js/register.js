@@ -20,10 +20,21 @@ btn.addEventListener('click', async (e) => {
 
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     
+    function generateUserIcon(user) {
+      const initial = user.charAt(0).toUpperCase();
+      const colors = ["#FF5733", "#33FF57", "#3357FF", "#F333FF", "#33FFF5"];
+      const bg = colors[Math.floor(Math.random() * colors.length)];
+      return { initial, bg };
+    }
+
+    const avatar = generateUserIcon(user);
+
     await setDoc(doc(db, "user", userCredential.user.uid), {
       user: user,
       email: email,
       rol: "user",
+      avatarInitial: avatar.initial,
+      avatarColorBg: avatar.bg,
       creado: serverTimestamp()
     });
     
