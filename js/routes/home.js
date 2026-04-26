@@ -1,6 +1,11 @@
 import { db } from "../firebase/firebase.js"
 import { collection, onSnapshot, query, orderBy, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+function formatServices(service) {
+  const clean = service.trim().toLowerCase();
+  return clean.charAt(0).toUpperCase() + clean.slice(1);
+}
+
 export function initHome() {
   console.log("Home inicializado");
   
@@ -12,8 +17,26 @@ export function initHome() {
 
   const q = query(contactsRef, orderBy("date", "asc"));
   
-  onSnapshot(q, (snapshot) => {
+  tableBody.innerHTML = 
+  `
+  <tr>
+    <td colspan="10">Cargando...</td>
+  </tr>
+  `;
+
+  onSnapshot(q, (snapshot) => { 
     tableBody.innerHTML = "";
+
+    if (snapshot.empty) {
+    tableBody.innerHTML = 
+    `
+    <tr>
+      <td colspan="10">No hay solicitudes</td>
+    </tr>
+    `;
+    return;
+    }
+
     let index = 1;
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
@@ -36,7 +59,7 @@ export function initHome() {
         <td>
           <button data-action="update">Actualizar</button>
           <button data-action="delete">Borrar</button>
-          <button data-action="toggle">${done ? 'Marcar pendiente' : 'Marcar completado'}</button>
+          <button data-action="toggle">${done ? 'Pendiente' : 'Completado'}</button>
         </td>
       </tr>
       `;
@@ -76,7 +99,7 @@ export function initHome() {
         
         const services = prompt("Servicios", data.services?.join(", ") || "");
         if (services?.trim()) {
-          const arr = services.split(", ").map(s => s.trim()).map(s => s.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(" "));
+          const arr = services.split(", ").map(s => formatServices(s));
 
           if (JSON.stringify(arr) !== JSON.stringify(data.services)) {
             updates.services = arr;
