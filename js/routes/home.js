@@ -1,5 +1,5 @@
 import { db } from "../firebase/firebase.js"
-import { collection, onSnapshot, query, orderBy, doc, deleteDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, onSnapshot, query, orderBy, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 export function initHome() {
   console.log("Home inicializado");
@@ -18,6 +18,7 @@ export function initHome() {
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
       const id = docSnap.id;
+      const done = data.done ?? false;
         
       tableBody.innerHTML += 
       `
@@ -31,11 +32,11 @@ export function initHome() {
         <td>${data.date}</td>
         <td>${(data.services || []).join(", ")}</td>
         <td>${data.term}</td>
+        <td class="${done ? 'done' : 'pending'}">${done ? 'Completado ✅' : 'Pendiente ⏳'}</td>
         <td>
-          <button data-action="view">Ver</button>
           <button data-action="update">Actualizar</button>
           <button data-action="delete">Borrar</button>
-          <button data-action="toggle">Estado</button>
+          <button data-action="toggle">${done ? 'Marcar pendiente' : 'Marcar completado'}</button>
         </td>
       </tr>
       `;
@@ -45,8 +46,48 @@ export function initHome() {
 
   function bindTableActions() {
     const actions = {
-      view: id => console.log("Ver", id),
-      update: id => console.log("Actualizar", id),
+      update: async (id) => {
+        const ref = doc(db, "contact", id);
+        const snap = await getDoc(ref);
+
+        if(!snap.exists()) return alert("No se encontró la solicitud");
+
+        const data = snap.data();
+
+        const updates = {};
+
+        const name = prompt("Nombre", data.name);
+        if (name?.trim() && name !== data.name) updates.name = name;
+
+        const lastname = prompt("Apellido", data.lastname);
+        if (lastname?.trim() && lastname !== data.lastname) updates.lastname = lastname;
+        
+        const email = prompt("Email", data.email);
+        if (email?.trim() && email !== data.email) updates.email = email;
+        
+        const phone_number = prompt("Número de teléfono", data.phone_number);
+        if (phone_number?.trim() && phone_number !== data.phone_number) updates.phone_number = phone_number;
+        
+        const placement = prompt("Lugar", data.placement);
+        if (placement?.trim() && placement !== data.placement) updates.placement = placement;
+        
+        const date = prompt("Fecha", data.date);
+        if (date?.trim() && date !== data.date) updates.date = date;
+        
+        const services = prompt("Servicios", data.services?.join(", ") || "");
+        if (services?.trim()) {
+          const arr = services.split(", ").map(s => s.trim()).map(s => s.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(" "));
+
+          if (JSON.stringify(arr) !== JSON.stringify(data.services)) {
+            updates.services = arr;
+          }
+        }
+
+        if (Object.keys(updates).length === 0) return alert("No se proporcionaron cambios");
+
+        await updateDoc(ref, updates);
+        alert("Solicitud actualizada");
+      },
       delete: async (id) => {
         const ok = confirm("¿Seguro que quieres borrar?");
         if (!ok) return;
@@ -54,7 +95,16 @@ export function initHome() {
         await deleteDoc(doc(db, "contact", id));
         alert("Solicitud eliminada");
       },
-      toggle: id => console.log("Estado", id),
+      toggle: async (id) => {
+        const ref = doc(db, "contact", id);
+        const snap = await getDoc(ref);
+
+        if(!snap.exists()) return alert("No se encontró la solicitud");
+
+        const data = snap.data();
+        
+        await updateDoc(ref, { done: !data.done});
+      },
     }
     
     tableBody.addEventListener("click", (e) => {
@@ -74,4 +124,6 @@ export function initHome() {
     });
   }
   bindTableActions(tableBody);
+
+
 }

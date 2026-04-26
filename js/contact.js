@@ -173,6 +173,7 @@ formC.addEventListener("submit", async (e) => {
       services: serviciosSeleccionados,
       date: fecha.value,
       term: term.checked === true,
+      done: false,
       creado: serverTimestamp()
     });
 
