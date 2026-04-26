@@ -55,7 +55,7 @@ export function initHome() {
         <td>${data.date}</td>
         <td>${(data.services || []).join(", ")}</td>
         <td>${data.term}</td>
-        <td class="${done ? 'done' : 'pending'}">${done ? 'Completado ✅' : 'Pendiente ⏳'}</td>
+        <td class="${done ? 'done' : 'pending'}">${done ? 'Completado' : 'Pendiente'}</td>
         <td>
           <button data-action="update">Actualizar</button>
           <button data-action="delete">Borrar</button>
