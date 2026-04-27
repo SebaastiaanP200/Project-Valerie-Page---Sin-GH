@@ -8,42 +8,125 @@ html {
 }
 
 h1 {
-  font-size: clamp(2rem, 3vw, 3rem);
-}
-
-p {
-  font-size: clamp(1rem, 1.2vw, 1.125rem);
-}
-
-.table__container {
-  background-color: #222;
+  margin-bottom: 3rem;
   padding: 1rem;
-  border: 3px solid green;
+  background: #111;
+  border-radius: .5rem;
+  text-align: center;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  text-shadow: 0 0 10px #000;
+}
+
+/* TABLE CONTAINER */
+.table__container {
+  margin: 0 auto;
+  width: 85%;
+  text-align: center  ;
+  overflow-x: auto;
+  background: rgba(0,0,0,0.3);
+  border-radius: .5rem;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+/* HEADER */
+.table thead {
+  background: #111;
+}
+
+.table th {
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  border-bottom: 2px solid #aaa;
+}
+
+/* BODY */
+.table td {
+  padding: .7rem;
+  border-bottom: none;
+  font-size: .9rem;
+}
+
+/* FILAS */
+.table tbody tr {
+  border-bottom: 1px solid #aaa;
+  transition: all .2s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+td:last-child {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  height: 100%;
+  gap: .5rem;
 }
 
-.table__container table {
-  width: 100%;
-  padding: .5rem;
-  margin: auto;
-  border: 3px solid red;
-  background-color: #333;
-} 
-
-.table__container table thead tr th {
-  background-color: #ddd;
-  padding: .5rem;
-  color: #111;
-  border: 3px solid rebeccapurple;
+.done {
+  opacity: 0.6;
+  user-select: none;
+  pointer-events: none;
 }
 
-.table__container td{
-  background-color: #ddd;
-  padding: .5rem;
-  color: #111;
-  border: 3px solid rebeccapurple;
+.pending, .done {
+  font-weight: 600;
+}
+
+.done {
+  color: #000;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 2rem;
+  border: none;
+  border-bottom: 2px solid #222;
+  border-radius: .3rem;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.btn-toggle {
+  width: 7rem;
+}
+
+.btn span {
+  font-size: 1.2rem;
+}
+
+button[data-action="update"] {
+  background: #0d6efd;
+  color: #fff;
+}
+
+button[data-action="delete"]  {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-toggle.status--pending {
+  background: #ffc107;
+  color: #000;
+}
+
+.btn-toggle.status--done {
+  background: #28a745;
+  color: #fff;
+}
+
+button:hover {
+  opacity: .8;
 }

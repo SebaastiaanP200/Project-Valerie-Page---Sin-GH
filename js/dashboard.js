@@ -36,12 +36,12 @@ btn__logout.addEventListener("click", async () => {
 
 
 
+const dashboard = document.querySelector(".dashboard");
 const menu = document.getElementById("menu");
 const sidebar = document.getElementById("sidebar");
 
 menu.addEventListener("click", () => {
-  sidebar.classList.toggle("sidebar__menu-toggle");
-  document.body.classList.toggle("sidebar-open");
+  dashboard.classList.toggle("sidebar-open");
 });
 
 

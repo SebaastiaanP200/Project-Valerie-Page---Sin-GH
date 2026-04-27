@@ -6,6 +6,11 @@ function formatServices(service) {
   return clean.charAt(0).toUpperCase() + clean.slice(1);
 }
 
+function formatPlacement(placement) {
+  const clean = placement.toLowerCase();
+  return clean.charAt(0).toUpperCase() + clean.slice(1);
+}
+
 export function initHome() {
   console.log("Home inicializado");
   
@@ -54,12 +59,15 @@ export function initHome() {
         <td>${data.placement}</td>
         <td>${data.date}</td>
         <td>${(data.services || []).join(", ")}</td>
-        <td>${data.term}</td>
         <td class="${done ? 'done' : 'pending'}">${done ? 'Completado' : 'Pendiente'}</td>
         <td>
-          <button data-action="update">Actualizar</button>
-          <button data-action="delete">Borrar</button>
-          <button data-action="toggle">${done ? 'Pendiente' : 'Completado'}</button>
+          <button class="btn btn-edit" data-action="update">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button class="btn btn-delete" data-action="delete">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+          <button class="btn btn-toggle ${done ? 'status--done' : 'status--pending'}" data-action="toggle">${done ? 'Pendiente' : 'Completado'}</button>
         </td>
       </tr>
       `;
@@ -92,7 +100,13 @@ export function initHome() {
         if (phone_number?.trim() && phone_number !== data.phone_number) updates.phone_number = phone_number;
         
         const placement = prompt("Lugar", data.placement);
-        if (placement?.trim() && placement !== data.placement) updates.placement = placement;
+        if (placement?.trim() && placement !== data.placement) {
+          const place = placement.split(", ").map(s => s.trim()).filter(Boolean).map(s => formatPlacement(s));
+
+          if (JSON.stringify(place) !== JSON.stringify(data.placement)) {
+            updates.placement = place;
+          }
+        }
         
         const date = prompt("Fecha", data.date);
         if (date?.trim() && date !== data.date) updates.date = date;
