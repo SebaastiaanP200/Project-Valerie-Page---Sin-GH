@@ -1,26 +1,31 @@
-const containerXV = document.querySelector(".portfolio__container");
+import { getData, getPortfolioImages } from "./utils/data.js";
 
-const getImgXV = async () => {
-    try {
-        const res = await axios.get("../img.json");
-        const data = res.data[7];
-        const portfolioContainerXV = document.createDocumentFragment();
+const container = document.querySelector(".portfolio__container");
 
-    for (let i = 0; i < data.portfolio_xv.length; i++) {
-        const id = data.portfolio_xv[i].id;
-        const imagen = data.portfolio_xv[i].url;
-        const name = data.portfolio_xv[i].name;
-        
-        const imgXV = document.createElement("IMG");
-        imgXV.classList.add("portfolio__images");
-        imgXV.src = imagen;
-        imgXV.alt = name;
-        imgXV.id = id;
-        imgXV.loading = "lazy";
-        portfolioContainerXV.appendChild(imgXV);
-    }
-    containerXV.appendChild(portfolioContainerXV);
-    } catch (e) {console.error("Error durante la carga: ", e);}
+const loadPortfolio = async (section) => {
+  try {
+    const data = await getData();
+    const images = getPortfolioImages(data[section]);
+
+    const fragment = document.createDocumentFragment();
+
+    images.forEach(imgData => {
+      const img = document.createElement("img");
+      img.classList.add("portfolio__images");
+			img.id = imgData.id;
+      img.src = imgData.url;
+      img.alt = imgData.name;
+      img.loading = "lazy";
+
+      fragment.appendChild(img);
+    });
+
+    container.innerHTML = "";
+    container.appendChild(fragment);
+  } catch (e) {
+    console.error("Error durante la carga: ", e);
+  }
 };
 
-getImgXV();
+const section = document.body.dataset.portfolio;
+loadPortfolio(section);

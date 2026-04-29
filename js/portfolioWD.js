@@ -1,26 +1,31 @@
-const containerWD = document.querySelector(".portfolio__container");
+import { getData, getPortfolioImages } from "./utils/data.js";
 
-const getImgWD = async () => {
-    try {
-        const res = await axios.get("../img.json");
-        const data = res.data[8];
-        const portfolioContainerWD = document.createDocumentFragment();
+const container = document.querySelector(".portfolio__container");
 
-    for (let i = 0; i < data.portfolio_wd.length; i++) {
-        const id = data.portfolio_wd[i].id;
-        const imagen = data.portfolio_wd[i].url;
-        const name = data.portfolio_wd[i].name;
+const loadPortfolio = async (section) => {
+  try {
+    const data = await getData();
+    const images = getPortfolioImages(data[section]);
 
-        const imgWD = document.createElement("IMG");
-        imgWD.classList.add("portfolio__images");
-        imgWD.src = imagen;
-        imgWD.alt = name;
-        imgWD.id = id;
-        imgWD.loading = "lazy";
-        portfolioContainerWD.appendChild(imgWD);
-    }
-    containerWD.appendChild(portfolioContainerWD);
-    } catch (e) {console.error("Error durante la carga: ", e);}
+    const fragment = document.createDocumentFragment();
+
+    images.forEach(imgData => {
+      const img = document.createElement("img");
+      img.classList.add("portfolio__images");
+      img.id = imgData.id;
+      img.src = imgData.url;
+      img.alt = imgData.name;
+      img.loading = "lazy";
+
+      fragment.appendChild(img);
+    });
+
+    container.innerHTML = "";
+    container.appendChild(fragment);
+  } catch (e) {
+    console.error("Error durante la carga: ", e);
+  }
 };
 
-getImgWD();
+const section = document.body.dataset.portfolio;
+loadPortfolio(section);
