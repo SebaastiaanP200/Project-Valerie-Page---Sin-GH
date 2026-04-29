@@ -1,5 +1,6 @@
 import { db } from "./firebase/firebase.js";
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getTxtData } from "./utils/data.js";
 
 // 1. SELECTORES (Agrupados por contexto)
 const formC = document.getElementById("form__c");
@@ -32,17 +33,19 @@ const expresiones = {
 // 3. LÓGICA DE DATOS (Async)
 const cargarDisclaimer = async () => {
   try {
-    const { data } = await axios.get("../txt.json");
-    const entry = data.find(info => info.disclaimer);
-    if (!entry) return;
+    const data = await getTxtData();
 
     const fragment = document.createDocumentFragment();
-    entry.disclaimer.forEach(info => {
-      const li = document.createElement("LI");
+
+    data.disclaimer.forEach(info => {
+      const li = document.createElement("li");
       li.classList.add("disclaimer__text");
       li.innerHTML = info.disclaimer;
+
       fragment.appendChild(li);
     });
+
+    containerTxtC.innerHTML = "";
     containerTxtC.appendChild(fragment);
   } catch (e) {
     console.error("Error cargando TXT: ", e);

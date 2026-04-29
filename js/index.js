@@ -1,21 +1,26 @@
+import { getData } from "./utils/data.js";
+
 const carouselContainer = document.querySelector(".carousel__container");
 
 const getImgC = async () => {
 	try {
-		const res = await axios.get("./img.json");
-		const data = res.data[0];
-		const containerImgHTML = document.createDocumentFragment();
+		const data = await getData();
+
+		const fragment = document.createDocumentFragment();
+		
 		for (let i = 0; i < 4; i++) {
 			const image = data.carousel[i];
 			if (!image) break;
-			const img = document.createElement("IMG");
-			img.alt = image.titulo;
+			
+			const img = document.createElement("img");
+			img.alt = image.name;
 			img.src = image.url;
 			img.loading = "lazy";
 			img.classList.add("image");
-			containerImgHTML.appendChild(img);
+
+			fragment.appendChild(img);
 		}
-		carouselContainer.appendChild(containerImgHTML);
+		carouselContainer.appendChild(fragment);
 	} catch (e) {
 		console.error("Error durante la carga: ", e);
 	}
@@ -23,30 +28,28 @@ const getImgC = async () => {
 
 getImgC();
 
-const container = document.querySelector(".flex__wrapper");
+const testimonyWrapper = document.querySelector(".flex__wrapper");
 
 const getImgT = async () => {
 	try {
-		const res = await axios.get("./img.json");
-		const data = res.data[1];
-		const testimonyContainer = document.createDocumentFragment();
+		const data = await getData();
 
-	for (let i = 0; i < data.testimony.length; i++) {
-		const id = data.testimony[i].id;
-		const name = data.testimony[i].name;
-		const imagen = data.testimony[i].url;
-		const description = data.testimony[i].description;
+		const fragment = document.createDocumentFragment();
 
-		const div = document.createElement("DIV");
-		div.classList.add("testimony__container");
-		div.id = `testimony${i + 1}`;
-		div.innerHTML = `
-										<h3 class="name__testimony">${name}</h3>
-										<img src="${imagen}" alt="Testimony ${id}" id="testimony-${id}" loading="lazy">
-										<p class="description__testimony" >${description}</p>`;
-		testimonyContainer.appendChild(div);
-	}
-	container.appendChild(testimonyContainer);
+		for (let i = 0; i < data.testimony.length; i++) {
+			const element = data.testimony[i];
+
+			const div = document.createElement("div");
+			div.classList.add("testimony__container");
+			div.id = `testimony${i + 1}`;
+			div.innerHTML = `
+				<h3 class="name__testimony">${element.name}</h3>
+				<img src="${element.url}" alt="Testimony ${element.name}" id="testimony-${element.id}" loading="lazy">
+				<p class="description__testimony" >${element.description}</p>`;
+
+			testimonyWrapper.appendChild(div);
+		}
+		testimonyWrapper.appendChild(fragment);
 	} catch (e) {console.error("Error durante la carga: ", e);}
 };
 

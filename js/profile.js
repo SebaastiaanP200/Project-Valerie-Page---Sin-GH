@@ -1,26 +1,30 @@
-const containerIMG = document.querySelector(".profile__container");
+import { getData, getTxtData } from "./utils/data.js";
+
+const containerProfile = document.querySelector(".profile__container");
 
 const getImgPF = async () => {
-    try {
-        const res = await axios.get("../img.json");
-        const data = res.data[2];
-        const profileContainer = document.createDocumentFragment();
-        
-        for (let i = 0; i < data.profile.length; i++) {
-            const id = data.profile[i].id;
-            const image = data.profile[i].url;
-            const name = data.profile[i].name;
-            
-        const img = document.createElement("IMG");
-        img.classList.add("profile__image");
-        img.src = image;
-        img.alt = name;
-        img.id = id;
-        img.loading = "lazy";
-        profileContainer.appendChild(img);
-        }
-        containerIMG.appendChild(profileContainer);
-    } catch (e) {console.error("Error durante la carga: ", e);}
+  try {
+    const data = await getData();
+
+    const profileFragment = document.createDocumentFragment();
+
+    data.profile.forEach(element => {
+
+      const img = document.createElement("img");
+      img.classList.add("profile__image");
+      img.src = element.url;
+      img.alt = element.name;
+      img.id = element.id;
+      img.loading = "lazy";
+
+      profileFragment.appendChild(img);
+    });
+
+    containerProfile.appendChild(profileFragment);
+  
+	} catch (e) {
+    console.error("Error durante la carga: ", e);
+  }
 };
 
 getImgPF();
@@ -28,22 +32,26 @@ getImgPF();
 const containerTxtP = document.querySelector(".profile__description");
 
 const getTxtP = async () => {
-    try {
-        const res = await axios.get("../txt.json");
-        const data = res.data[0];
-        const profileContainerTxt = document.createDocumentFragment();
+  try {
+    const data = await getTxtData();
 
-    for (let i = 0; i < data.profile.length; i++) {
-        const description = data.profile[i].description;
-        const id = data.profile[i].id;
+    const profileContainerTxt = document.createDocumentFragment();
 
-        const div = document.createElement("DIV");
-        div.classList.add("profile__text");
-        div.innerHTML = `<p id=${id}>${description}</p></div>`;
-        profileContainerTxt.appendChild(div);
-    }
+    data.profile.forEach(element => {
+
+      const div = document.createElement("div");
+      div.classList.add("profile__text");
+      div.innerHTML = `<p id="${element.id || ""}">${element.description}</p></div>`;
+
+      profileContainerTxt.appendChild(div);
+    });
+
+		containerTxtP.innerHTML = "";
     containerTxtP.appendChild(profileContainerTxt);
-    } catch (e) {console.error("Error durante la carga: ", e);}
+
+  } catch (e) {
+    console.error("Error durante la carga: ", e);
+  }
 };
 
 getTxtP();
