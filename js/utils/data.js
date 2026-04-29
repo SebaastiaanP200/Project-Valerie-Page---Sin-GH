@@ -1,16 +1,16 @@
-export function recoverData(d_array) {
-  const result = {}
+// export function recoverData(d_array) {
+//   const result = {}
 
-  d_array.forEach(data => {
-    const key = Object.keys(data)[0];
-    result[key] = data[key];
-  });
-  return result;
-}
+//   d_array.forEach(data => {
+//     const key = Object.keys(data)[0];
+//     result[key] = data[key];
+//   });
+//   return result;
+// }
 
 export async function getData() {
   const res = await axios.get("/img.json");
-  return recoverData(res.data);
+  return res.data;
 }
 
 export function getPortfolioPreviewSections(data) {

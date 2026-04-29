@@ -1,40 +1,33 @@
-import { getData, getPortfolioPreviewSections } from "./utils/data.js";
+import { getData } from "./utils/data.js";
 
-const containerPreview = document.querySelector(".portfolio__container");
+const container = document.querySelector(".portfolio__container");
 
 const loadPreview = async () => {
-  try {
-    const data = await getData();
-    const sections = getPortfolioPreviewSections(data);
+  const data = await getData();
+  const portfolios = data.portfolio;
 
-    const previewFragment = document.createDocumentFragment();
-
-    sections.forEach((section) => {
-      const ul = section.images
-        .map((imgObject) => {
-          return `
-					<li>
-						<img src="${imgObject.url}" alt="${imgObject.name}" loading="lazy">
-					</li>
-					`;
-        })
-        .join("");
+  const fragment = document.createDocumentFragment();
+console.log("data:", data);
+  Object.values(portfolios).forEach(section => {
+    const previewImages = section.preview;
       
-      const div = document.createElement("DIV");
-      div.classList.add("portfolio__slider");
-      div.innerHTML = `
-				<a href="${section.link}" class="link__portfolio">¡Open!</a>
-				<ul>${ul}</ul>
-			`;
-      previewFragment.appendChild(div);
-    });
+    const ul = previewImages.map(img => `
+      <li>
+        <img src="${img.url}" alt="${img.name}" id="${img.id}"  loading="lazy">
+      </li>
+      `).join("");
+        
+    const div = document.createElement("div");
+    div.classList.add("portfolio__slider");
+    div.innerHTML = `
+      <a href="${section.link}" class="link__portfolio">¡Open!</a>
+      <ul>${ul}</ul>
+    `;
+    fragment.appendChild(div);
+  });
 
-    containerPreview.innerHTML = "";
-    containerPreview.appendChild(previewFragment);
-  
-	} catch (e) {
-    console.error("Error durante la carga: ", e);
-  }
-};
+  container.innerHTML = "";
+  container.appendChild(fragment);
+}
 
 loadPreview();
