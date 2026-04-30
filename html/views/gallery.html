@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-	<link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="../css/dashboard.css">
-  <link rel="stylesheet" href="/css/styles/gallery.css">
-  <title>Gallery</title>
-</head>
-<body>
+<h1>Gallery</h1>
 
-  <h1>Gallery</h1>
-  
+<section class="gallery-panel" id="gallery-panel">
 
-  <script type="module" src="/js/routes/gallery.js"></script>
-</body>
-</html>
+  <div class="controls">
+    <input class="inp__file" type="file" id="upload" multiple hidden>
+    <button class="btn__upload" id="uploadBtn">Subir Imágenes</button>
+    <button class="btn__delete" id="deleteBtn">Eliminar Seleccionadas</button>
+  </div>
+
+  <div class="dropzone" id="dropzone">
+    <p>Arrastra imágenes aquí o haz click en "Subir"</p>
+  </div>
+
+  <div class="grid__gallery-container"></div>
+
+</section>

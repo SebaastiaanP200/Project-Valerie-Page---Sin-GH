@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-	<link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="../css/dashboard.css">
-  <link rel="stylesheet" href="/css/styles/home.css">
-  <title>Home</title>
-</head>
-<body>
+<div>
+  <h1>Home</h1>
+</div>
+<div class="table__container">
+  <table class="table" id="contacts-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Lugar</th>
+        <th>Fecha</th>
+        <th>Servicios</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
 
-  <div>
-      <h1>Home</h1>
-    </div>
-    <div class="table__container">
-      <table class="table" id="contacts-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>Lugar</th>
-            <th>Fecha</th>
-            <th>Servicios</th>  
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
-    </div>
-
-  <script type="module" src="/js/routes/home.js"></script>
-</body>
-</html>
