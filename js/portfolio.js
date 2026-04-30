@@ -7,7 +7,7 @@ const loadPreview = async () => {
   const portfolios = data.portfolio;
 
   const fragment = document.createDocumentFragment();
-console.log("data:", data);
+
   Object.values(portfolios).forEach(section => {
     const previewImages = section.preview;
       
