@@ -1,10 +1,10 @@
 import { getData } from "../utils/data.js";
 import { db } from "../firebase/firebase.js"
-import { doc, getDoc,updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 export async function initGallery() {
-  console.log("Galería inicializada");
-}
+
 const galleryPanel = document.getElementById("gallery-panel");
 
 const gridGallery = document.getElementById("grid-gallery");
@@ -12,8 +12,12 @@ const uploadInput = document.getElementById("upload");
 const uploadBtn = document.getElementById("uploadBtn");
 const deleteBtn = document.getElementById("deleteBtn");
 
+
+
 let selectedImages = new Set();
 let currentSection = "nf";
+
+
 
 const uploadImage = async (file) => {
   const formData = new FormData();
@@ -25,22 +29,100 @@ const uploadImage = async (file) => {
     body: formData
   });
 
-  return data = await res.json();
+  return await res.json();
 }
+
+
 
 const saveImage = async (section, ImageData) => {
   const ref = doc(db, "gallery", "main");
 
-  await updateDoc(ref, {
+  await setDoc(ref, {
     [section]: arrayUnion(ImageData)
-  });
+  }, { merge: true });
 };
+
+
 
 const getGallery = async () => {
   const ref = doc(db, "gallery", "main");
   const snap = await getDoc(ref);
 
-  if(!snap.exist()) return {};
+  if(!snap.exists()) return {};
   return snap.data();
 }
 
+
+
+const renderGallery = async () => {
+  const data = await getGallery();
+  const images = data[currentSection] || [];
+
+  gridGallery.innerHTML = "";
+
+  images.forEach(img => {
+    const div = document.createElement("div");
+    div.classList.add("gallery__item");
+    div.dataset.id = img.public_id;
+    
+    div.innerHTML = `<img src="${img.url}" onerror="this.parentElement.remove()">`;
+
+    div.addEventListener("click", () => {
+      div.classList.toggle("selected");
+
+      if (selectedImages.has(img.public_id)) {
+        selectedImages.delete(img.public_id);
+      } else {
+        selectedImages.add(img.public_id);
+      }
+    });
+    gridGallery.appendChild(div);
+  });
+}
+
+
+
+const deleteSelected = async () => {
+  const data = await getGallery();
+  const images = data[currentSection] || [];
+  const ref = doc(db, "gallery", "main");
+
+  for (const id of selectedImages) {
+    const imgRemove = images.filter(img => selectedImages.has(img.public_id));
+    
+    await updateDoc(ref, {
+      [currentSection]: arrayRemove(...imgRemove)
+    });
+  }
+  
+  selectedImages.clear();
+  renderGallery();
+}
+
+
+
+uploadBtn.addEventListener("click", () => uploadInput.click());
+
+
+
+uploadInput.addEventListener("change", async (e) => {
+  const files = e.target.files;
+
+  for (const file of files) {
+    const uploaded = await uploadImage(file);
+    console.log(uploaded);
+    const imageData = {
+      url: uploaded.secure_url,
+      public_id: uploaded.public_id
+    }
+    await saveImage(currentSection, imageData);
+  }
+  renderGallery();
+});
+
+
+
+deleteBtn.addEventListener("click", deleteSelected);
+
+renderGallery();
+}
