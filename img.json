@@ -1,46 +1,5 @@
 {
-  "carousel": [
-    {
-      "id": 1,
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990714/24_bvmpvy.jpg",
-      "name": "Foto 1"
-    },
-    {
-      "id": 2,
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990661/2_rjgcf3.jpg",
-      "name": "Foto 2"
-    },
-    {
-      "id": 3,
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990646/27_m7lwwl.jpg",
-      "name": "Foto 3"
-    },
-    {
-      "id": 4,
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990591/22_l9hheo.jpg",
-      "name": "Foto 4"
-    }
-  ],
-  "testimony": [
-    {
-      "id": 1,
-      "name": "PERSONA",
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990595/5_oeuaik.jpg",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et nostrus. Fugit dolore aspernatur illo nisi, nesciunt quisquam? Perspiciatis, non nostrum."
-    },
-    {
-      "id": 2,
-      "name": "PERSONA",
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990590/18_tf5xcn.jpg",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit dolore aspernatur illo nisi, nesciunt quisquam? Perspiciatis, non nostrum."
-    },
-    {
-      "id": 3,
-      "name": "PERSONA",
-      "url": "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990591/21_zko009.jpg",
-      "description": "Lorem ipsum dolor sit, adipisicing elit. Et nostrum laboriosam eligendi aspernatur non tenetur eius iure nam quos. Fugit dolore aspernatur illo nisi, nesciunt quisquam? Perspiciatis, non nostrum."
-    }
-  ],
+
   "profile": [
     {
       "name": 1,

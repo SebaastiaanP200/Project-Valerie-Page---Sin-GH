@@ -1,7 +1,5 @@
 import { getData } from "./utils/data.js";
-import { db } from "./firebase/firebase.js";
-
-
+import { initFirestore } from "./firebase/firestore.js";
 
 const carouselContainer = document.querySelector(".carousel__container");
 const testimonyWrapper = document.querySelector(".flex__wrapper");
@@ -57,7 +55,12 @@ const initHome = async () => {
 	}
 }
 
-initHome();
+const startApp = async () => {
+  await initFirestore();
+  await initHome();
+}
+
+startApp();
 
 const logo = document.getElementById("logo");
 

@@ -1,7 +1,7 @@
-import { db, firestore } from "./firebase.js";
+import { db } from "./firebase.js";
 import { collection, addDoc, query, where, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const initFirestore = async () => {
+export const initFirestore = async () => {
   const ref = doc(db, "index", "main");
   const snap = await getDoc(ref);
 
@@ -75,16 +75,13 @@ const initFirestore = async () => {
             { id: "f8", url: "https://res.cloudinary.com/djtomsyj8/image/upload/f_webp/v1774990676/8_ipmeca.jpg", name: "Foto 8" }]
           }
         }
-      };
-
-      await setDoc(ref, initialData);
-      console.log("Datos en Firestore inicializados correctamente");
-    } else {
-      console.log("Los datos en Firestore ya estaban inicializados");
-    }
-  };
-
-  initFirestore();
+      }; 
+    await setDoc(ref, initialData);
+    console.log("Datos en Firestore inicializados correctamente");
+  } else {
+    console.log("Los datos en Firestore ya estaban inicializados");
+  }
+};
 
 
 
