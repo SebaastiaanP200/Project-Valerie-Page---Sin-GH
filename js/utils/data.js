@@ -1,8 +1,6 @@
 import { db } from "../firebase/firebase.js"
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-
 export async function getData() {
   const ref = doc(db, "index", "main");
   const snap = await getDoc(ref);
