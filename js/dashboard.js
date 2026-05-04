@@ -107,6 +107,8 @@ window.addEventListener("load", async () => {
   }
 });
 
+
+
 document.querySelectorAll(".sidebar__link").forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
