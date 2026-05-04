@@ -1,6 +1,17 @@
+import { db } from "../firebase/firebase.js"
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
 export async function getData() {
-  const res = await axios.get("/img.json");
-  return res.data;
+  const ref = doc(db, "index", "main");
+  const snap = await getDoc(ref);
+  
+  if (!snap.exists()) {
+    console.warn("Firestore no tiene datos");
+    return {};
+  }
+  return snap.data();
 }
 
 export async function getTxtData() {
