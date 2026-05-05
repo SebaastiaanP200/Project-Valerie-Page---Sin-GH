@@ -307,7 +307,7 @@ export const initFirestore = async () => {
     await setDoc(ref, initialData);
     console.log("Datos en Firestore creados correctamente");
   } else {
-    await setDoc(ref, initialData, { merge:true });
+    await setDoc(ref, initialData, { merge: true });
     console.log("Los datos en Firestore están actualizados");
   }
 };

@@ -1,14 +1,11 @@
 import { getData } from "./utils/data.js";
+import { initFirestore } from "./firebase/firestore.js";
 
-const container = document.querySelector(".portfolio__container");
-
-const loadPreview = async () => {
-  const data = await getData();
-  const portfolios = data.portfolio;
-
+const renderPortfolio = (portfolio = {}) => {
+  const container = document.getElementById("portfolio-container");
   const fragment = document.createDocumentFragment();
 
-  Object.values(portfolios).forEach(section => {
+  Object.values(portfolio).forEach(section => {
     const previewImages = section.preview;
       
     const ul = previewImages.map(img => `
@@ -30,4 +27,19 @@ const loadPreview = async () => {
   container.appendChild(fragment);
 }
 
-loadPreview();
+const initPortfolio = async () => {	
+  try {
+    const data = await getData();
+    
+    renderPortfolio(data.portfolio || []);
+  } catch (e) {
+    console.error("Error durante la carga: ", e);
+  }
+}
+const startApp = async () => {
+  await initFirestore();
+  await initPortfolio();
+}
+
+startApp();
+
