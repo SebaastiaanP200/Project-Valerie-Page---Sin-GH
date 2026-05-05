@@ -1,4 +1,4 @@
-import { getData } from "./utils/data.js";
+import { getDocData } from "./utils/data.js";
 import { initFirestore } from "./firebase/firestore.js";
 
 const renderPortfolio = (portfolio = {}) => {
@@ -29,9 +29,9 @@ const renderPortfolio = (portfolio = {}) => {
 
 const initPortfolio = async () => {	
   try {
-    const data = await getData();
+    const data = await getDocData("index", "main");
     
-    renderPortfolio(data.portfolio || []);
+    renderPortfolio(data.portfolio || {});
   } catch (e) {
     console.error("Error durante la carga: ", e);
   }

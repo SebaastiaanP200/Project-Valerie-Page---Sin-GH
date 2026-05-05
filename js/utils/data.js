@@ -1,15 +1,23 @@
 import { db } from "../firebase/firebase.js"
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-export async function getData() {
-  const ref = doc(db, "index", "main");
-  const snap = await getDoc(ref);
+const cache = {};
+
+export async function getDocData(collection, docId) {
+  const key = `${collection}/${docId}`;
   
+  if (cache[key]) return cache[key];
+
+  const ref = doc(db, collection, docId);
+  const snap = await getDoc(ref);
+
   if (!snap.exists()) {
-    console.warn("Firestore no tiene datos");
+    console.warn(`No existe ${key}`);
     return {};
   }
-  return snap.data();
+
+  cache[key] = snap.data();
+  return cache[key];
 }
 
 // export async function getTxtData() {

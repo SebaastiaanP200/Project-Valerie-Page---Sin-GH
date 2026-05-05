@@ -1,4 +1,4 @@
-import { getData } from "./utils/data.js";
+import { getDocData } from "./utils/data.js";
 import { initFirestore } from "./firebase/firestore.js";
 
 const carouselContainer = document.querySelector(".carousel__container");
@@ -46,7 +46,7 @@ const renderTestimony = (testimony = []) => {
 
 const initHome = async () => {	
 	try {
-		const data = await getData();
+		const data = await getDocData("index", "main");
 		
 		renderCarousel(data.carousel || []);
 		renderTestimony(data.testimony || []);

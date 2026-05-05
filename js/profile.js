@@ -1,4 +1,4 @@
-import { getData } from "./utils/data.js";
+import { getDocData } from "./utils/data.js";
 import { initFirestore } from "./firebase/firestore.js";
 
 const profileImage = document.getElementById("profile-container");
@@ -36,7 +36,7 @@ texts.forEach(txt => {
 
 const initProfile = async () => {	
   try {
-    const data = await getData();
+    const data = await getDocData("index", "main");
     
     renderProfileImage(data.profile || []);
     renderProfileText(data.profileText || []);
