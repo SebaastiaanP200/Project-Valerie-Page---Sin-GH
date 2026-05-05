@@ -18,7 +18,6 @@ const renderProfileImage = (profile = []) => {
     fragment.appendChild(img);
   });
   profileImage.innerHTML = "";
-  console.log(document.getElementById("profile-description"));
   profileImage.appendChild(fragment);
 };
 
@@ -40,7 +39,6 @@ const initProfile = async () => {
     const data = await getData();
     
     renderProfileImage(data.profile || []);
-    console.log("PROFILE TEXT:", data.profileText);
     renderProfileText(data.profileText || []);
   } catch (e) {
     console.error("Error durante la carga: ", e);
