@@ -1,57 +1,55 @@
-import { getData, getTxtData } from "./utils/data.js";
+import { getData } from "./utils/data.js";
+import { initFirestore } from "./firebase/firestore.js";
 
-const containerProfile = document.querySelector(".profile__container");
+const profileImage = document.getElementById("profile-container");
+const profileText = document.getElementById("profile-description");
 
-const getImgPF = async () => {
-  try {
-    const data = await getData();
-
-    const profileFragment = document.createDocumentFragment();
-
-    data.profile.forEach(element => {
-
-      const img = document.createElement("img");
-      img.classList.add("profile__image");
-      img.src = element.url;
-      img.alt = element.name;
-      img.id = element.id;
-      img.loading = "lazy";
-
-      profileFragment.appendChild(img);
-    });
-
-    containerProfile.appendChild(profileFragment);
+const renderProfileImage = (profile = []) => {
+	const fragment = document.createDocumentFragment();
   
-	} catch (e) {
-    console.error("Error durante la carga: ", e);
-  }
+  profile.forEach(image => {
+    const img = document.createElement("img");
+    img.classList.add("profile__image");
+    img.src = image.url;
+    img.alt = image.name;
+    img.id = image.id;
+    img.loading = "lazy";
+    
+    fragment.appendChild(img);
+  });
+  profileImage.innerHTML = "";
+  console.log(document.getElementById("profile-description"));
+  profileImage.appendChild(fragment);
 };
 
-getImgPF();
+const renderProfileText = (texts = []) => {
+const fragment = document.createDocumentFragment();
 
-const containerTxtP = document.querySelector(".profile__description");
+texts.forEach(txt => {
+  const div = document.createElement("div");
+  div.classList.add("profile__text");
+  div.innerHTML = `<p id="${txt.id || ""}">${txt.description}</p>`;
+  fragment.appendChild(div);
+  });
+	profileText.innerHTML = "";
+  profileText.appendChild(fragment);
+};
 
-const getTxtP = async () => {
+const initProfile = async () => {	
   try {
-    const data = await getTxtData();
-
-    const profileContainerTxt = document.createDocumentFragment();
-
-    data.profile.forEach(element => {
-
-      const div = document.createElement("div");
-      div.classList.add("profile__text");
-      div.innerHTML = `<p id="${element.id || ""}">${element.description}</p></div>`;
-
-      profileContainerTxt.appendChild(div);
-    });
-
-		containerTxtP.innerHTML = "";
-    containerTxtP.appendChild(profileContainerTxt);
-
+    const data = await getData();
+    
+    renderProfileImage(data.profile || []);
+    console.log("PROFILE TEXT:", data.profileText);
+    renderProfileText(data.profileText || []);
   } catch (e) {
     console.error("Error durante la carga: ", e);
   }
-};
+}
 
-getTxtP();
+const startApp = async () => {
+  await initFirestore();
+  await initProfile();
+}
+
+startApp();

@@ -12,10 +12,10 @@ export async function getData() {
   return snap.data();
 }
 
-export async function getTxtData() {
-  const res = await axios.get("/txt.json");
-  return res.data;
-}
+// export async function getTxtData() {
+//   const res = await axios.get("/txt.json");
+//   return res.data;
+// }
 
 // export function getPortfolioImages(d_section) {
 //   if (!d_section) return [];
