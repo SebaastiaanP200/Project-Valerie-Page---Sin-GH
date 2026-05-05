@@ -1,6 +1,6 @@
 import { db } from "./firebase/firebase.js";
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getTxtData } from "./utils/data.js";
+import { getData } from "./utils/data.js";
 
 // 1. SELECTORES (Agrupados por contexto)
 const formC = document.getElementById("form__c");
@@ -33,7 +33,7 @@ const expresiones = {
 // 3. LÓGICA DE DATOS (Async)
 const cargarDisclaimer = async () => {
   try {
-    const data = await getTxtData();
+    const data = await getData();
 
     const fragment = document.createDocumentFragment();
 
@@ -83,15 +83,17 @@ const gestionarVisibilidadServicios = () => {
 // 5. EVENT LISTENERS
 tipoEvento.addEventListener("change", gestionarVisibilidadServicios);
 lugar.addEventListener("input", () => {
-  lugar.value = lugar.value.toLowerCase().split(" ").filter(palabra => palabra !== "")
-  .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(" ");
+  lugar.value = lugar.value.toLowerCase().split(" ").filter(p => p !== "")
+  .map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
   actualizarInterfazValidacion();
 });
 lugar.addEventListener("input", actualizarInterfazValidacion);
 
 const dateContainer = fecha.closest(".form__input");
 
-dateContainer.addEventListener("click", () => {
+dateContainer.addEventListener("click", (e) => {
+  if (e.target === fecha) return;
+  e.preventDefault();
   if (fecha.showPicker) { fecha.showPicker(); } else { fecha.focus(); }
 });
 
