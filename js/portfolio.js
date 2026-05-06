@@ -37,7 +37,7 @@ const initPortfolio = async () => {
   }
 }
 const startApp = async () => {
-  await initFirestore();
+  // await initFirestore();
   await initPortfolio();
 }
 

@@ -1,20 +1,25 @@
-import { getData } from "./utils/data.js";
+import { getDocData } from "./utils/data.js";
 
-const container = document.getElementById(".portfolio-container");
-if (!container) {
-  console.warn("Contenedor no encontrado");
-  return;
-}
+
 
 const loadPortfolio = async () => {
-    const data = await getData();
+  const container = document.getElementById("portfolio-container");
+  
+  if (!container) {
+    console.warn("Contenedor no encontrado");
+    return;
+  }
+
+  try {
+    const data = await getDocData("index", "main");
 
     const key = document.body.dataset.portfolio;
-    const section = data.portfolio[key];
     if (!key) {
       console.warn("No hay data-portfolio en el body");
       return;
     }
+
+    const section = data.portfolio[key];
     if (!section || !section.images) {
       console.warn("Portfolio no encontrado");
       return;
@@ -35,6 +40,9 @@ const loadPortfolio = async () => {
 
     container.innerHTML = "";
     container.appendChild(fragment);
-};
+  } catch (error) {
+    console.error("Error cargando el portfolio individual");
+  };
+}
 
-loadPortfolio();
+loadPortfolio();   

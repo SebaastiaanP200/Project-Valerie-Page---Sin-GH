@@ -56,7 +56,7 @@ const initHome = async () => {
 }
 
 const startApp = async () => {
-  await initFirestore();
+  // await initFirestore();
   await initHome();
 }
 

@@ -46,7 +46,7 @@ const initProfile = async () => {
 }
 
 const startApp = async () => {
-  await initFirestore();
+  // await initFirestore();
   await initProfile();
 }
 
