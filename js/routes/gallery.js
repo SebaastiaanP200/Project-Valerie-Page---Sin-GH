@@ -1,4 +1,4 @@
-import { getData } from "../utils/data.js";
+import { getDocData } from "../utils/data.js";
 import { db } from "../firebase/firebase.js"
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 

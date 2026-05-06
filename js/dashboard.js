@@ -1,6 +1,7 @@
 import { db, auth } from "./firebase/firebase.js";
 import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initFirestore } from "./firebase/firestore.js";
 
 import { initHome } from "./routes/home.js";
 import { initGallery } from "./routes/gallery.js";
@@ -64,19 +65,40 @@ export async function navigate(view) {
   }
 
   const res = await fetch(`./views/${view}.html`);
-
   if (!res.ok) {
     console.error(`Vista ${view} no encontrada`);
     return -3;
   }
 
   const html = await res.text();
-  
-  try {
-    app.innerHTML = html;
-  } catch (err) {
-    console.error("Error renderizando vista", err);
-    return -4;
+
+  app.innerHTML = html;
+
+  if (view === "settings") {
+    const btnSync = document.getElementById("btnSync");
+
+    if (btnSync) {
+      btnSync.addEventListener("click", async () => {
+        const confirmar = confirm(
+          "Está seguro de que desea reemplazar los datos",
+        );
+
+        if (confirmar) {
+          try {
+            btnSync.disabled = true;
+            btnSync.textContent = "Sincronizando...";
+            await initFirestore();
+            alert("¡Web actualizada con éxito!");
+          } catch (error) {
+            console.error("Fallo de la sincronización:", error);
+            alert("No tenés permisos o falló la conexión.");
+          } finally {
+            btnSync.disabled = false;
+            btnSync.textContent = "Sincronizar cambios";
+          }
+        }
+      });
+    }
   }
 
   const routes = {
