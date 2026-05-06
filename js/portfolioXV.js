@@ -1,7 +1,5 @@
 import { getDocData } from "./utils/data.js";
 
-
-
 const loadPortfolio = async () => {
   const container = document.getElementById("portfolio-container");
   
