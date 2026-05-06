@@ -1,6 +1,6 @@
 import { db } from "./firebase/firebase.js";
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getData } from "./utils/data.js";
+import { getDocData } from "./utils/data.js";
 
 // 1. SELECTORES (Agrupados por contexto)
 const formC = document.getElementById("form__c");
@@ -33,7 +33,7 @@ const expresiones = {
 // 3. LÓGICA DE DATOS (Async)
 const cargarDisclaimer = async () => {
   try {
-    const data = await getData();
+    const data = await getDocData("index", "main");
 
     const fragment = document.createDocumentFragment();
 
