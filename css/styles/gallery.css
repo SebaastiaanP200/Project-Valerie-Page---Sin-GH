@@ -11,3 +11,10 @@ h1 {
   width: 19rem;
   padding: 1rem;
 }
+
+/*.preview-grid {
+    display: block; /* Cambiamos temporalmente a block para que no flote 
+    min-height: 500px; /* Dale una altura exagerada para probar 
+    overflow: anchor-selection; /* Intenta mantener el foco 
+  } 
+*/

@@ -71,8 +71,10 @@ export async function navigate(view) {
   }
 
   const html = await res.text();
-
+  const currentScroll = window.scrollY; // Guardamos la posición actual
   app.innerHTML = html;
+  window.scrollTo(0, currentScroll); // Forzamos a que se quede donde estaba
+
 
   if (view === "settings") {
     const btnSync = document.getElementById("btnSync");

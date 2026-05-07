@@ -9,6 +9,8 @@ export async function initGallery() {
   const uploadBtn = document.getElementById("uploadBtn");
   const deleteBtn = document.getElementById("deleteBtn");
   const dropzone = document.getElementById("dropzone");
+  const container = document.getElementById("preview-container");
+  const btnConfirm = document.getElementById("btnConfirmUpload");
 
   let selectedImages = new Set();
   let currentSection = "nf";
@@ -91,7 +93,8 @@ export async function initGallery() {
     });
   }
 
-  const deleteSelected = async () => {
+  const deleteSelected = async (e) => {
+    if (e) e.preventDefault();
     if (selectedImages.size === 0) return;
 
     const data = await getGallery();
@@ -116,8 +119,6 @@ export async function initGallery() {
   renderGallery();
   }
 
-  uploadBtn.addEventListener("click", () => uploadInput.click());
-
   let filesToUpload = [];
 
   const handleFiles = (files) => {
@@ -125,8 +126,6 @@ export async function initGallery() {
     filesToUpload = [...filesToUpload, ...newFiles];
     renderPreview();
   }
-
-  const container = document.getElementById("preview-container");
 
   const renderPreview = () => {
     container.innerHTML = "";
@@ -137,60 +136,60 @@ export async function initGallery() {
         const div = document.createElement("div");
         div.classList.add("preview__item");
         div.innerHTML = `<img src="${e.target.result}" style="width: 10rem; height: 10rem; object-fit: cover;">
-        <button class="btn-remove" data-index="${index}">❌</button>`;
+        <button type="button" class="btn-remove" data-index="${index}">❌</button>`;
         container.appendChild(div);
       };
       reader.readAsDataURL(file);
     });
 
-    const btnConfirm = document.getElementById("btnConfirmUpload");
-    btnConfirm.addEventListener("click", uploadAllFiles);
     btnConfirm.style.display = filesToUpload.length > 0 ? "block" : "none";
   }
   
+  const uploadAllFiles = async () => {
+    btnConfirm.disabled = true;
+    btnConfirm.textContent = "Subiendo...";
+
+    for (const file of filesToUpload) {
+      try {
+        const uploaded = await uploadImage(file);
+        const imageData = {
+          url: uploaded.secure_url,
+          public_id: uploaded.public_id
+        };
+        await saveImage(currentSection, imageData);
+      } catch(error) {
+        console.error("Error al subir uno de los archivos", error);
+      };
+    }
+    filesToUpload = [];
+    renderPreview();
+    renderGallery();
+    alert("¡Todas las fotos seleccionadas han sido subidas!");
+  }
+
   container.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn-remove")) {
+      e.preventDefault();
       const index = e.target.dataset.index;
       filesToUpload.splice(index, 1);
       renderPreview();
     }
   });
-
-  const uploadAllFiles = async () => {
-    const btnConfirm = document.getElementById("btnConfirmUpload");
-    btnConfirm.disabled = true;
-    btnConfirm.textContent = "Subiendo...";
-
-    for (const file of filesToUpload) {
-      try{
-      const uploaded = await uploadImage(file);
-      const imageData = {
-        url: uploaded.secure_url,
-        public_id: uploaded.public_id
-      };
-      await saveImage(currentSection, imageData);
-    } catch(error) {
-      console.error("Error al subir uno de los archivos", error);
-    };
-  }
-
-  filesToUpload = [];
-  renderPreview();
-  renderGallery();
-  alert("¡Todas las fotos seleccionadas han sido subidas!");
-}
-
-  uploadInput.addEventListener("change", async (e) => handleFiles(e.target.files));
-
+  
   dropzone.addEventListener("dragover", (e) => { e.preventDefault(); dropzone.style.borderColor = "#000"; });
   dropzone.addEventListener("dragleave", () => { dropzone.style.borderColor = "#ddd"; });
-  dropzone.addEventListener("drop", (e) => { 
-    e.preventDefault();
-    dropzone.style.borderColor = "#ccc";
+  dropzone.addEventListener("drop", (e) => { e.preventDefault(); dropzone.style.borderColor = "#ccc";
     handleFiles(e.dataTransfer.files)
   });
 
-  deleteBtn.addEventListener("click", deleteSelected);
+  btnConfirm.addEventListener("click", (e) => { e.preventDefault(); uploadAllFiles(); });
+  
+  uploadInput.addEventListener("change", async (e) => handleFiles(e.target.files));
+
+  uploadBtn.addEventListener("click", (e) => { e.preventDefault(); uploadInput.click()});
+
+  deleteBtn.addEventListener("click", (e) => { e.preventDefault(); deleteSelected(); });
+
   renderGallery();
 }
 
