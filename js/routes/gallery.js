@@ -118,17 +118,67 @@ export async function initGallery() {
 
   uploadBtn.addEventListener("click", () => uploadInput.click());
 
-  const handleFiles = async (files) => {
-      for (const file of files) {
+  let filesToUpload = [];
+
+  const handleFiles = (files) => {
+    const newFiles = Array.from(files);
+    filesToUpload = [...filesToUpload, ...newFiles];
+    renderPreview();
+  }
+
+  const container = document.getElementById("preview-container");
+
+  const renderPreview = () => {
+    container.innerHTML = "";
+
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const div = document.createElement("div");
+        div.classList.add("preview__item");
+        div.innerHTML = `<img src="${e.target.result}" style="width: 10rem; height: 10rem; object-fit: cover;">
+        <button class="btn-remove" data-index="${index}">❌</button>`;
+        container.appendChild(div);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    const btnConfirm = document.getElementById("btnConfirmUpload");
+    btnConfirm.addEventListener("click", uploadAllFiles);
+    btnConfirm.style.display = filesToUpload.length > 0 ? "block" : "none";
+  }
+  
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-remove")) {
+      const index = e.target.dataset.index;
+      filesToUpload.splice(index, 1);
+      renderPreview();
+    }
+  });
+
+  const uploadAllFiles = async () => {
+    const btnConfirm = document.getElementById("btnConfirmUpload");
+    btnConfirm.disabled = true;
+    btnConfirm.textContent = "Subiendo...";
+
+    for (const file of filesToUpload) {
+      try{
       const uploaded = await uploadImage(file);
       const imageData = {
         url: uploaded.secure_url,
         public_id: uploaded.public_id
-      }
+      };
       await saveImage(currentSection, imageData);
-    }
-    renderGallery();
+    } catch(error) {
+      console.error("Error al subir uno de los archivos", error);
+    };
   }
+
+  filesToUpload = [];
+  renderPreview();
+  renderGallery();
+  alert("¡Todas las fotos seleccionadas han sido subidas!");
+}
 
   uploadInput.addEventListener("change", async (e) => handleFiles(e.target.files));
 
